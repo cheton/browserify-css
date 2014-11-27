@@ -1,0 +1,41 @@
+{
+  "name": "browserify-css",
+  "version": "0.1.0",
+  "description": "A Browserify transform for bundling and minifying CSS files",
+  "main": "./index.js",
+  "browser": "./browser.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cheton/browserify-css"
+  },
+  "keywords": [
+    "browser",
+    "browserify",
+    "browserify-transform",
+    "css",
+    "dom",
+    "transform"
+  ],
+  "author": {
+    "name": "Cheton Wu"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "clean-css": "2.2.x",
+    "concat-stream": "1.4.x",
+    "css": "1.6.x",
+    "lodash": "2.4.x",
+    "through2": "0.6.x",
+    "underscore.string": "2.4.x"
+  },
+  "devDependencies": {
+    "browserify": "6.3.x"
+  },
+  "bugs": {
+    "url": "https://github.com/cheton/browserify-css/issues"
+  },
+  "homepage": "https://github.com/cheton/browserify-css"
+}
