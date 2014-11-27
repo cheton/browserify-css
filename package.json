@@ -17,6 +17,7 @@
     "browserify-transform",
     "css",
     "dom",
+    "minify",
     "transform"
   ],
   "author": {
