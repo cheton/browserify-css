@@ -1,6 +1,6 @@
 # browserify-css #
 
-A Browserify transform for bundling, rebasing, and minifying CSS files.
+A Browserify transform for bundling, rebasing, inlining, and minifying CSS files.
 
 ## Getting Started
 
