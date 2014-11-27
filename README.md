@@ -1,6 +1,6 @@
 # browserify-css #
 
-A Browserify transform for bundling and minifying CSS files.
+A Browserify transform for bundling, rebasing, and minifying CSS files.
 
 ## Getting Started
 
@@ -37,8 +37,7 @@ Each `require('./path/to/file.css')` call will concatenate CSS files with @impor
 ```
 <html>
 <head>
-<style 
-<style type="text/css" data-href="app.css">...</style>
+    <style type="text/css" data-href="app.css">...</style>
 </head>
 </html>
 ```
