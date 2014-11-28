@@ -48,7 +48,7 @@ You can put your [browserify-css](https://github.com/cheton/browserify-css) opti
 ``` json
 {
     "browserify-css": {
-        "auto-inject": true,
+        "autoInject": true,
         "minify": true,
         "rootDir": "."
     }
@@ -65,7 +65,7 @@ or use an external configuration file like below:
 config/browserify-css.js:
 ``` js
 module.exports = {
-    "auto-inject": true,
+    "autoInject": true,
     "minify": true,
     "rootDir": "."
 };
@@ -73,12 +73,24 @@ module.exports = {
 
 ## Options
 
-### auto-inject
+### autoInject
 
 Type: `Boolean`
 Default: `true`
 
 If true, each `require('path/to/file.css')` call will add a style tag to the head section of the document.
+
+### autoInjectOptions
+
+Type: `Object`
+Default: 
+``` json
+{
+    verbose: true
+}
+```
+
+If verbose is set to true, the path to CSS will be specified in the data-href attribute inside the style tag
 
 ### rootDir
 
@@ -92,7 +104,7 @@ An absolute path to resolve relative paths against the project's base directory.
 Type: `Boolean`
 Default: `false`
 
-### minify-options
+### minifyOptions
 
 Type: `Object`
 Default: `{}`

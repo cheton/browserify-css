@@ -8,10 +8,13 @@ var cssTransform = require('./css-transform');
 var CleanCSS = require('clean-css');
 
 var defaults = {
-    'auto-inject': true,
+    'autoInject': true,
+    'autoInjectOptions': {
+        'verbose': true
+    },
     'rootDir': process.cwd(),
     'minify': false,
-    'minify-options': {
+    'minifyOptions': {
         // Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
     }
 };
@@ -41,21 +44,24 @@ module.exports = function(filename) {
         function flush(done) {
             var that = this;
 
-            cssTransform({ rootDir: options.rootDir }, filename, function(data) {
+            cssTransform({ rootDir: options['rootDir'] }, filename, function(data) {
                 var moduleBody = '';
                 var rootDir = path.join(process.cwd(), options.rootDir);
                 var relativePath = path.relative(rootDir, path.dirname(filename));
                 var href = path.join(relativePath, path.basename(filename));
 
-                if (options.minify) {
-                    data = new CleanCSS(options['minify-options']).minify(data);
+                if (options['minify']) {
+                    data = new CleanCSS(options['minifyOptions']).minify(data);
                 }
 
-                if ( ! options['auto-inject']) {
+                if ( ! options['autoInject']) {
                     moduleBody = 'module.exports = ' + JSON.stringify(data) + ';'
-                } else if (options['injected-tag'] === 'style') { // <style>
-                    moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;'
-
+                } else {
+                    if (options.autoInjectOptions['verbose']) {
+                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;'
+                    } else {
+                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css)); module.exports = css;'
+                    }
                 }
 
                 that.push(moduleBody);
