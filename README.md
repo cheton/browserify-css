@@ -99,7 +99,7 @@ Default: `./`
 
 An absolute path to resolve relative paths against the project's base directory.
 
-### minfiy
+### minify
 
 Type: `Boolean`
 Default: `false`
