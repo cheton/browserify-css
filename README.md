@@ -44,7 +44,7 @@ Each `require('./path/to/file.css')` call will concatenate CSS files with @impor
 
 ## Configuration
 
-You can put your [browserify-css](https://github.com/cheton/browserify-css) options into your package.json file:
+You can set configuration to your package.json file:
 ``` json
 {
     "browserify-css": {
@@ -69,6 +69,15 @@ module.exports = {
     "minify": true,
     "rootDir": "."
 };
+```
+
+Furthermore, browserify-css transform can obtain options from the command-line with subarg syntax:
+```
+$ browserify -t [ browserify-css --autoInject=true ] app.js
+```
+or from the api:
+```
+b.transform('browserify-css', { autoInject: true })
 ```
 
 ## Options
