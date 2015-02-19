@@ -10,7 +10,7 @@ var concat = require('concat-stream');
 
 var isExternalURL = function(path) {
     return !! url.parse(path).protocol;
-}
+};
 
 var isRelativePath = function(path) {
     return /^[^\/]/.test(path);
@@ -38,17 +38,17 @@ var cssTransform = function(options, filename, callback) {
             var protocolRegEx = /[^\:\/]*:\/\/([^\/])*/;
             var urlRegEx = /url\s*\((?!#)\s*(\s*"([^"]*)"|'([^']*)'|[^\)]*\s*)\s*\)/ig;
             var r;
-            while (r = urlRegEx.exec(source)) {
-                var url = r[2] // url("path/to/foo.css");
-                       || r[3] // url('path/to/foo.css');
-                       || r[1] // url(path/to/foo.css)
-                       || '';
+            while ((r = urlRegEx.exec(source))) {
+                var url = r[2] || // url("path/to/foo.css");
+                          r[3] || // url('path/to/foo.css');
+                          r[1] || // url(path/to/foo.css)
+                          '';
                 var quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
                 var newUrl = url;
 
                 if ( ! url.match(absUrlRegEx) && ! url.match(protocolRegEx)) {
                     // if both r[2] and r[3] are undefined, but r[1] is a string, it will be the case of url(path/to/foo.css)
-                    var quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
+                    quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
 
                     var dirname = path.dirname(filename);
                     var from = rootDir,
@@ -72,7 +72,6 @@ var cssTransform = function(options, filename, callback) {
         var rules = css.parse(data).stylesheet.rules;
 
         _.each(rules, function(rule) {
-
             if (rule.type === 'import') {
                 //
                 // @import 'path/to/foo.css';
@@ -84,15 +83,15 @@ var cssTransform = function(options, filename, callback) {
                 // @import url("chrome://communicator/skin/")
                 //
                 var importRegEx = /(url)?\s*(('([^']*)'|"([^"]*)")|\(('([^']*)'|"([^"]*)"|([^\)]*))\))\s*;?/;
-                var result = importRegEx.exec(rule.import);
+                var result = importRegEx.exec(rule['import']);
 
-                                     // rule.import             result array
-                                     // =======================================
-                var url = result[7]  // url('path/to/foo.css')  result[7] = path/to/foo.css
-                       || result[8]  // url("path/to/foo.css")  result[8] = path/to/foo.css
-                       || result[9]  // url(path/to/foo.css)    result[9] = path/to/foo.css
-                       || result[4]  // 'path/to/foo.css'       result[4] = path/to/foo.css
-                       || result[5]; // "path/to/foo.css"       result[5] = path/to/foo.css
+                                       // rule.import             result array
+                                       // =======================================
+                var url = result[7] || // url('path/to/foo.css')  result[7] = path/to/foo.css
+                          result[8] || // url("path/to/foo.css")  result[8] = path/to/foo.css
+                          result[9] || // url(path/to/foo.css)    result[9] = path/to/foo.css
+                          result[4] || // 'path/to/foo.css'       result[4] = path/to/foo.css
+                          result[5];   // "path/to/foo.css"       result[5] = path/to/foo.css
 
                 url = _str.trim(url);
 
@@ -117,13 +116,12 @@ var cssTransform = function(options, filename, callback) {
                     declaration.value = rebase(declaration.value);
                 });
 
-                var result = css.stringify({
+                var css = css.stringify({
                     stylesheet: {
                         rules: [ rule ]
                     }
                 });
-
-                cssStream.write(result + '\n');
+                cssStream.write(css + '\n');
             }
         });
     };

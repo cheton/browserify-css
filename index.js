@@ -61,12 +61,12 @@ module.exports = function(filename, opts) {
                 }
 
                 if ( ! options['autoInject']) {
-                    moduleBody = 'module.exports = ' + JSON.stringify(data) + ';'
+                    moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
                 } else {
                     if (options.autoInjectOptions['verbose']) {
-                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;'
+                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;';
                     } else {
-                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css)); module.exports = css;'
+                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify(__dirname) + ').createStyle(css)); module.exports = css;';
                     }
                 }
 
