@@ -33,7 +33,8 @@
     "underscore.string": "2.4.x"
   },
   "devDependencies": {
-    "browserify": "6.3.x"
+    "browserify": "^8.1.3",
+    "tap": "^0.6.0"
   },
   "bugs": {
     "url": "https://github.com/cheton/browserify-css/issues"
