@@ -52,7 +52,7 @@ module.exports = function(filename, opts) {
 
             cssTransform({ rootDir: options['rootDir'] }, filename, function(data) {
                 var moduleBody = '';
-                var rootDir = path.join(process.cwd(), options.rootDir);
+                var rootDir = path.resolve(process.cwd(), options.rootDir);
                 var relativePath = path.relative(rootDir, path.dirname(filename));
                 var href = path.join(relativePath, path.basename(filename));
 
