@@ -19,15 +19,15 @@ var defaults = {
     }
 };
 
-var pkg = JSON.parse(fs.readFileSync(process.cwd() + '/package.json') || '{}');
-var options = pkg['browserify-css'] || {};
-if (typeof options === 'string') {
-    var base = path.relative(__dirname, process.cwd());
-    try {
+try {
+    var pkg = JSON.parse(fs.readFileSync(process.cwd() + '/package.json') || '{}');
+    var options = pkg['browserify-css'] || defaults;
+    if (typeof options === 'string') {
+        var base = path.relative(__dirname, process.cwd());
         options = require(path.join(base, options)) || defaults;
-    } catch (err) {
-        options = defaults;
     }
+} catch (err) {
+    options = defaults;
 }
 options = _.defaults(options, defaults);
 
