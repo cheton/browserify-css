@@ -1,4 +1,6 @@
-# browserify-css #
+# browserify-css [![build status](https://secure.travis-ci.org/cheton/browserify-css.png?branch=master)](https://travis-ci.org/cheton/browserify-css)
+
+[![NPM](https://nodei.co/npm/browserify-css.png?downloads=true&stars=true)](https://nodei.co/npm/browserify-css/)
 
 A Browserify transform for bundling, rebasing, inlining, and minifying CSS files. It's useful for CSS modularization where styles are scoped to their related bundles.
 
