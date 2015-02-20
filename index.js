@@ -36,9 +36,7 @@ module.exports = function(filename, opts) {
         return through();
     }
 
-    var cssBuffer = {};
     var buffer = '';
-    var externalURLs = [];
 
     options = _.extend({}, options, opts);
 
