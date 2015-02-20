@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     init: function() {
         var container = document.getElementById('container');
