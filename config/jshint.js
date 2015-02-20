@@ -6,9 +6,9 @@ module.exports = {
 
     // This option prohibits the use of bitwise operators such as ^ (XOR), | (OR) and others.
     // Bitwise operators are very rare in JavaScript programs and quite often & is simply a mistyped &&.
-    bitwise: false,
+    bitwise: true,
     // This option allows you to force all variable names to use either camelCase style or UPPER_CASE with underscores.
-    camelcase: false,
+    camelcase: true,
     // This option requires you to always put curly braces around blocks in loops and conditionals. 
     curly: true,
     // This options prohibits the use of == and != in favor of === and !==. 
@@ -16,7 +16,7 @@ module.exports = {
     // This option tells JSHint that your code needs to adhere to ECMAScript 3 specification. 
     es3: true,
     // This option requires all for in loops to filter object's items. 
-    forin: false,
+    forin: true,
     // This option prohibits the use of immediate function invocations without wrapping them in parentheses.
     immed: true,
     // This option enforces specific tab width for your code. For example, the following code will trigger a warning on line 4:
@@ -28,21 +28,21 @@ module.exports = {
     // This option prohibits the use of arguments.caller and arguments.callee. 
     noarg: true,
     // This option warns when you have an empty block in your code. 
-    noempty: false,
+    noempty: true,
     // This option prohibits the use of constructor functions for side-effects.
     nonew: true,
     // This option prohibits the use of unary increment and decrement operators.
-    plusplus: false,
+    plusplus: true,
     // This option enforces the consistency of quotation marks used throughout your code.
     quotmark: true,
     // This option prohibits the use of explicitly undeclared variables. 
     undef: true,
     // This option warns when you define and never use your variables. 
-    unused: false,
+    unused: true,
     // This option requires all functions to run in ECMAScript 5's strict mode. 
-    strict: false,
+    strict: true,
     // This option makes it an error to leave a trailing whitespace in your code. 
-    trailing: false,
+    trailing: true,
 
     /**
      * Relaxing options
@@ -110,8 +110,6 @@ module.exports = {
         module: true,
         console: true,
         define: true,
-        require: true,
-        requirejs: true,
-        Buffer: true
+        require: true
     }
 };
