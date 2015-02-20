@@ -142,7 +142,7 @@ module.exports = function(options, filename, callback) {
     }
 
     if (typeof callback !== 'function') {
-        callback = function noop(data) { };
+        callback = function noop() {};
     }
 
     options = _.defaults(options || {}, defaults);
