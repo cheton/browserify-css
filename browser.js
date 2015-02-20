@@ -1,6 +1,5 @@
-//
+'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
-//
 
 module.exports = {
     // Create a <link> tag with optional data attributes
