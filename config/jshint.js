@@ -110,6 +110,7 @@ module.exports = {
         module: true,
         console: true,
         define: true,
-        require: true
+        require: true,
+        JSON: true
     }
 };
