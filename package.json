@@ -5,7 +5,7 @@
   "main": "./index.js",
   "browser": "./browser.js",
   "scripts": {
-    "test": "npm run gulp",
+    "test": "npm run gulp && npm run tap-test",
     "gulp": "gulp",
     "tap-test": "tap test/*.js"
   },
@@ -38,8 +38,8 @@
     "browserify": "^8.1.3",
     "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
-    "jsdom": "^3.1.1",
-    "tap": "^0.6.0"
+    "jsdom": "^3.1.2",
+    "tap": "^0.7.1"
   },
   "bugs": {
     "url": "https://github.com/cheton/browserify-css/issues"

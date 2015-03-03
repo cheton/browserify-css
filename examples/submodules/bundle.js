@@ -1,6 +1,11 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var css = "body .foo {\n  background-color: #ccc;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody .bar {\n  background-color: #eee;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n  background-color: #fff;\n  font-size: 12px;\n}\n"; (require("/home/cheton/gitlab/browserify-css/examples/node_modules/browserify-css").createStyle(css, { "href": "app.css"})); module.exports = css;
-},{"/home/cheton/gitlab/browserify-css/examples/node_modules/browserify-css":5}],2:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require('../../../examples/submodules');
+
+},{"../../../examples/submodules":3}],2:[function(require,module,exports){
+var css = "body .foo {\n  background-color: #ccc;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody .bar {\n  background-color: #eee;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n  background-color: #fff;\n  font-size: 12px;\n}\n"; (require("/home/cheton/github/browserify-css").createStyle(css, { "href": "../examples/submodules/app.css"})); module.exports = css;
+},{"/home/cheton/github/browserify-css":"browserify-css"}],3:[function(require,module,exports){
+'use strict';
+
 require('./app.css');
 var foo = require('./modules/foo');
 var bar = require('./modules/bar');
@@ -8,7 +13,9 @@ var bar = require('./modules/bar');
 foo.init();
 bar.init();
 
-},{"./app.css":1,"./modules/bar":3,"./modules/foo":4}],3:[function(require,module,exports){
+},{"./app.css":2,"./modules/bar":4,"./modules/foo":5}],4:[function(require,module,exports){
+'use strict';
+
 module.exports = {
     init: function() {
         var container = document.getElementById('container');
@@ -19,7 +26,9 @@ module.exports = {
     }
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+'use strict';
+
 module.exports = {
     init: function() {
         var container = document.getElementById('container');
@@ -30,10 +39,9 @@ module.exports = {
     }
 };
 
-},{}],5:[function(require,module,exports){
-//
+},{}],"browserify-css":[function(require,module,exports){
+'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
-//
 
 module.exports = {
     // Create a <link> tag with optional data attributes
@@ -80,4 +88,4 @@ module.exports = {
     }
 };
 
-},{}]},{},[2]);
+},{}]},{},[1]);

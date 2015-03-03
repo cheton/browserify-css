@@ -10,7 +10,7 @@ var tasks = {
             '*.js',
             '*.json',
             'examples/**/*.js',
-            '!examples/bundle.js'
+            '!examples/**/bundle.js'
         ])
         .pipe(jshint(jshintConfig))
         .pipe(jshint.reporter());
