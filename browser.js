@@ -26,6 +26,8 @@ module.exports = {
             style = document.createElement('style');
 
         style.type = 'text/css';
+        style.innerHTML = cssText;
+
         for (var key in attributes) {
             if ( ! attributes.hasOwnProperty(key)) {
                 continue;
