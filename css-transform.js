@@ -116,12 +116,12 @@ var cssTransform = function(options, filename, callback) {
                     declaration.value = rebase(declaration.value);
                 });
 
-                var css = css.stringify({
+                var cssText = css.stringify({
                     stylesheet: {
                         rules: [ rule ]
                     }
                 });
-                cssStream.write(css + '\n');
+                cssStream.write(cssText + '\n');
             }
         });
     };
