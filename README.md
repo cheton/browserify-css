@@ -144,14 +144,18 @@ You can choose one of the following methods to include CSS files located inside 
   
 2. Use the global transform option (i.e. `--global-transform` or `-g`) on the command line to transform all files in a node_modules directory:
 
+  ``` bash
   $ browserify -g browserify-css app.js > bundle.js 
+  ```
 
   or use the API directly:
 
+  ``` js
   var browserify = require('browserify');
   var b = browserify('./app.js');
   b.transform('browserify-css', {global: true});
   b.bundle().pipe(process.stdout);
+  ```
   See transform options: https://github.com/substack/node-  browserify#btransformtr-opts
 
 3. Put browserify transform option into a submodule's package.json file inside the `node_modules` directory on a **per-module basis** like so:
@@ -169,9 +173,6 @@ You can choose one of the following methods to include CSS files located inside 
   ``` bash
   $ browserify -t browserify-css app.js > bundle.js 
   ```
-
-
-  
 
 ## License
 
