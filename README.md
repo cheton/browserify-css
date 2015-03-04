@@ -122,6 +122,57 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+## FAQ 
+### How do I include CSS files located inside the node_modules folder?
+You can choose one of the following methods to include CSS files located inside the node_modules folder:
+
+1. The easiest way to do this is using the `@import` rule. For example:
+
+  app.js:
+  ``` javascript
+  require('./app.css');
+  ```
+
+  app.css:
+  ``` css
+  /* Use CSS from your node_modules folder */
+  @import "node_modules/foo/foo.css";
+
+  /* Or your own relative files */
+  @import "styles/common.css";
+  ```
+  
+2. Use the global transform option (i.e. `--global-transform` or `-g`) on the command line to transform all files in a node_modules directory:
+
+  $ browserify -g browserify-css app.js > bundle.js 
+
+  or use the API directly:
+
+  var browserify = require('browserify');
+  var b = browserify('./app.js');
+  b.transform('browserify-css', {global: true});
+  b.bundle().pipe(process.stdout);
+  See transform options: https://github.com/substack/node-  browserify#btransformtr-opts
+
+3. Put browserify transform option into a submodule's package.json file inside the `node_modules` directory on a **per-module basis** like so:
+
+  node_modules/foo/package.json:
+  ``` json
+  {
+    "browserify": {
+      "transform": ["browserify-css"]
+    }
+  }
+  ```
+
+  Then, run browserify transform on the command line:
+  ``` bash
+  $ browserify -t browserify-css app.js > bundle.js 
+  ```
+
+
+  
+
 ## License
 
 MIT
