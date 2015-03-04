@@ -156,7 +156,7 @@ You can choose one of the following methods to include CSS files located inside 
   b.transform('browserify-css', {global: true});
   b.bundle().pipe(process.stdout);
   ```
-  See transform options: https://github.com/substack/node-  browserify#btransformtr-opts
+  See [browserify transform options](https://github.com/substack/node-browserify#btransformtr-opts) for details.
 
 3. Put browserify transform option into a submodule's package.json file inside the `node_modules` directory on a **per-module basis** like so:
 
