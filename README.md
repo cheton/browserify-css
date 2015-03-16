@@ -97,7 +97,7 @@ Type: `Object`
 Default: 
 ``` json
 {
-    verbose: true
+    "verbose": true
 }
 ```
 
