@@ -176,4 +176,6 @@ You can choose one of the following methods to include CSS files located inside 
 
 ## License
 
-MIT
+Copyright (c) 2014-2015 Cheton Wu
+
+Licensed under the [MIT License](https://github.com/cheton/browserify-css/blob/master/LICENSE).
