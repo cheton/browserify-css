@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>browserify-css by cheton</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>browserify-css</h1>
+          <h2>A Browserify transform for bundling, rebasing, inlining, and minifying CSS files.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/cheton/browserify-css/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/cheton/browserify-css/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/cheton/browserify-css" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="browserify-css-" class="anchor" href="#browserify-css-" aria-hidden="true"><span class="octicon octicon-link"></span></a>browserify-css <a href="https://travis-ci.org/cheton/browserify-css"><img src="https://travis-ci.org/cheton/browserify-css.svg?branch=master" alt="build status"></a>
+</h1>
+
+<p><a href="https://nodei.co/npm/browserify-css/"><img src="https://nodei.co/npm/browserify-css.png?downloads=true&amp;stars=true" alt="NPM"></a></p>
+
+<p>A Browserify transform for bundling, rebasing, inlining, and minifying CSS files. It's useful for CSS modularization where styles are scoped to their related bundles.</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>If you're new to browserify, check out the <a href="https://github.com/substack/browserify-handbook">browserify handbook</a> and the resources on <a href="http://browserify.org/">browserify.org</a>.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p><code>npm install --save-dev browserify-css</code></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>app.css:</p>
+
+<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-s3">url</span>(<span class="pl-s1"><span class="pl-pds">"</span>modules/foo/index.css<span class="pl-pds">"</span></span>);
+<span class="pl-k">@import</span> <span class="pl-s3">url</span>(<span class="pl-s1"><span class="pl-pds">"</span>modules/bar/index.css<span class="pl-pds">"</span></span>);
+<span class="pl-ent">body</span> {
+    <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#fff</span>;
+}</pre></div>
+
+<p>app.js:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> css <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);
+<span class="pl-en">console</span><span class="pl-s3">.log</span>(css);</pre></div>
+
+<p>You can compile your app by passing -t browserify-css to browserify:</p>
+
+<pre><code>$ browserify -t browserify-css app.js &gt; bundle.js
+</code></pre>
+
+<p>Each <code>require('./path/to/file.css')</code> call will concatenate CSS files with <a href="https://github.com/import" class="user-mention">@import</a> statements, rebasing urls, inlining <a href="https://github.com/import" class="user-mention">@import</a>, and minifying CSS. It will add a style tag with an optional data-href attribute to the head section of the document during runtime:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+    &lt;style type="text/css" data-href="app.css"&gt;...&lt;/style&gt;
+&lt;/head&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>You can set configuration to your package.json file:</p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>or use an external configuration file like below:</p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>./config/browserify-css.js<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>config/browserify-css.js:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-sv">module</span>.exports <span class="pl-k">=</span> {
+    <span class="pl-s1"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
+};</pre></div>
+
+<p>Furthermore, browserify-css transform can obtain options from the command-line with subarg syntax:</p>
+
+<pre><code>$ browserify -t [ browserify-css --autoInject=true ] app.js
+</code></pre>
+
+<p>or from the api:</p>
+
+<pre><code>b.transform('browserify-css', { autoInject: true })
+</code></pre>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<h3>
+<a id="autoinject" class="anchor" href="#autoinject" aria-hidden="true"><span class="octicon octicon-link"></span></a>autoInject</h3>
+
+<p>Type: <code>Boolean</code>
+Default: <code>true</code></p>
+
+<p>If true, each <code>require('path/to/file.css')</code> call will add a style tag to the head section of the document.</p>
+
+<h3>
+<a id="autoinjectoptions" class="anchor" href="#autoinjectoptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>autoInjectOptions</h3>
+
+<p>Type: <code>Object</code>
+Default: </p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-ii">verbose</span>: <span class="pl-c1">true</span>
+}</pre></div>
+
+<p>If verbose is set to true, the path to CSS will be specified in the data-href attribute inside the style tag</p>
+
+<h3>
+<a id="rootdir" class="anchor" href="#rootdir" aria-hidden="true"><span class="octicon octicon-link"></span></a>rootDir</h3>
+
+<p>Type: <code>String</code>
+Default: <code>./</code></p>
+
+<p>An absolute path to resolve relative paths against the project's base directory.</p>
+
+<h3>
+<a id="minify" class="anchor" href="#minify" aria-hidden="true"><span class="octicon octicon-link"></span></a>minify</h3>
+
+<p>Type: <code>Boolean</code>
+Default: <code>false</code></p>
+
+<h3>
+<a id="minifyoptions" class="anchor" href="#minifyoptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>minifyOptions</h3>
+
+<p>Type: <code>Object</code>
+Default: <code>{}</code></p>
+
+<p>Check out a list of CSS minify options at <a href="https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically">CleanCSS</a>.</p>
+
+<h2>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h2>
+
+<h3>
+<a id="how-do-i-include-css-files-located-inside-the-node_modules-folder" class="anchor" href="#how-do-i-include-css-files-located-inside-the-node_modules-folder" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do I include CSS files located inside the node_modules folder?</h3>
+
+<p>You can choose one of the following methods to include CSS files located inside the node_modules folder:</p>
+
+<ol>
+<li>
+<p>The easiest way to do this is using the <code>@import</code> rule. For example:</p>
+
+<p>app.js:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>app.css:</p>
+
+<div class="highlight highlight-css"><pre><span class="pl-c">/* Use CSS from your node_modules folder */</span>
+<span class="pl-k">@import</span> <span class="pl-s1"><span class="pl-pds">"</span>node_modules/foo/foo.css<span class="pl-pds">"</span></span>;
+
+<span class="pl-c">/* Or your own relative files */</span>
+<span class="pl-k">@import</span> <span class="pl-s1"><span class="pl-pds">"</span>styles/common.css<span class="pl-pds">"</span></span>;</pre></div>
+</li>
+<li>
+<p>Use the global transform option (i.e. <code>--global-transform</code> or <code>-g</code>) on the command line to transform all files in a node_modules directory:</p>
+
+<div class="highlight highlight-bash"><pre>$ browserify -g browserify-css app.js <span class="pl-k">&gt;</span> bundle.js </pre></div>
+
+<p>or use the API directly:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> browserify <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> b <span class="pl-k">=</span> browserify(<span class="pl-s1"><span class="pl-pds">'</span>./app.js<span class="pl-pds">'</span></span>);
+b.transform(<span class="pl-s1"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>, {global<span class="pl-k">:</span> <span class="pl-c1">true</span>});
+b.bundle().pipe(<span class="pl-sv">process</span>.stdout);</pre></div>
+
+<p>See <a href="https://github.com/substack/node-browserify#btransformtr-opts">browserify transform options</a> for details.</p>
+</li>
+<li>
+<p>Put browserify transform option into a submodule's package.json file inside the <code>node_modules</code> directory on a <strong>per-module basis</strong> like so:</p>
+
+<p>node_modules/foo/package.json:</p>
+
+<div class="highlight highlight-json"><pre>{
+  <span class="pl-s1"><span class="pl-pds">"</span>browserify<span class="pl-pds">"</span></span>: {
+    <span class="pl-s1"><span class="pl-pds">"</span>transform<span class="pl-pds">"</span></span>: [<span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>]
+  }
+}</pre></div>
+
+<p>Then, run browserify transform on the command line:</p>
+
+<div class="highlight highlight-bash"><pre>$ browserify -t browserify-css app.js <span class="pl-k">&gt;</span> bundle.js </pre></div>
+</li>
+</ol>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+        </section>
+
+        <footer>
+          browserify-css is maintained by <a href="https://github.com/cheton">cheton</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
