@@ -26,6 +26,8 @@ module.exports = {
             style = document.createElement('style');
 
         style.type = 'text/css';
+        head.appendChild(style);
+
         style.innerHTML = cssText;
 
         for (var key in attributes) {
@@ -43,7 +45,5 @@ module.exports = {
         } else {
             style.appendChild(document.createTextNode(cssText));
         }
-
-        head.appendChild(style);
     }
 };
