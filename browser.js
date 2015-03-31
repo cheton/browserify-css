@@ -26,7 +26,6 @@ module.exports = {
             style = document.createElement('style');
 
         style.type = 'text/css';
-        style.innerHTML = cssText;
 
         for (var key in attributes) {
             if ( ! attributes.hasOwnProperty(key)) {
@@ -35,15 +34,18 @@ module.exports = {
             var value = attributes[key];
             style.setAttribute('data-' + key, value);
         }
-
-        if (style.sheet) {
+        
+        if (style.sheet) { // for IE9+
+            style.innerHTML = cssText;
             style.sheet.cssText = cssText;
-        } else if (style.styleSheet) {
+            head.appendChild(style);
+        } else if (style.styleSheet) { // for IE8
+            head.appendChild(style);
             style.styleSheet.cssText = cssText;
         } else {
+            style.innerHTML = cssText;
             style.appendChild(document.createTextNode(cssText));
+            head.appendChild(style);
         }
-
-        head.appendChild(style);
     }
 };
