@@ -35,15 +35,14 @@ module.exports = {
             style.setAttribute('data-' + key, value);
         }
         
-        if (style.sheet) { // for IE9+
+        if (style.sheet) { // for jsdom and IE9+
             style.innerHTML = cssText;
             style.sheet.cssText = cssText;
             head.appendChild(style);
-        } else if (style.styleSheet) { // for IE8
+        } else if (style.styleSheet) { // for IE8 and below
             head.appendChild(style);
             style.styleSheet.cssText = cssText;
-        } else {
-            style.innerHTML = cssText;
+        } else { // for Chrome, Firefox, and Safari
             style.appendChild(document.createTextNode(cssText));
             head.appendChild(style);
         }
