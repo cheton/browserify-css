@@ -1,9 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-require('../../../examples/submodules');
-
-},{"../../../examples/submodules":3}],2:[function(require,module,exports){
-var css = "body .foo {\n  background-color: #ccc;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody .bar {\n  background-color: #eee;\n  height: 100px;\n  line-height: 100px;\n  font-size: 20px;\n  text-align: center;\n}\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n  background-color: #fff;\n  font-size: 12px;\n}\n"; (require("/home/cheton/github/browserify-css").createStyle(css, { "href": "../examples/submodules/app.css"})); module.exports = css;
-},{"/home/cheton/github/browserify-css":"browserify-css"}],3:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 require('./app.css');
@@ -13,33 +8,7 @@ var bar = require('./modules/bar');
 foo.init();
 bar.init();
 
-},{"./app.css":2,"./modules/bar":4,"./modules/foo":5}],4:[function(require,module,exports){
-'use strict';
-
-module.exports = {
-    init: function() {
-        var container = document.getElementById('container');
-        var bar = document.createElement('div');
-        bar.setAttribute('class', 'bar');
-        bar.innerHTML = 'bar module';
-        container.appendChild(bar);
-    }
-};
-
-},{}],5:[function(require,module,exports){
-'use strict';
-
-module.exports = {
-    init: function() {
-        var container = document.getElementById('container');
-        var foo = document.createElement('div');
-        foo.setAttribute('class', 'foo');
-        foo.innerHTML = 'foo module';
-        container.appendChild(foo);
-    }
-};
-
-},{}],"browserify-css":[function(require,module,exports){
+},{"./app.css":3,"./modules/bar":4,"./modules/foo":5}],2:[function(require,module,exports){
 'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
 
@@ -68,6 +37,7 @@ module.exports = {
             style = document.createElement('style');
 
         style.type = 'text/css';
+
         for (var key in attributes) {
             if ( ! attributes.hasOwnProperty(key)) {
                 continue;
@@ -75,17 +45,50 @@ module.exports = {
             var value = attributes[key];
             style.setAttribute('data-' + key, value);
         }
-
-        if (style.sheet) {
+        
+        if (style.sheet) { // for jsdom and IE9+
+            style.innerHTML = cssText;
             style.sheet.cssText = cssText;
-        } else if (style.styleSheet) {
+            head.appendChild(style);
+        } else if (style.styleSheet) { // for IE8 and below
+            head.appendChild(style);
             style.styleSheet.cssText = cssText;
-        } else {
+        } else { // for Chrome, Firefox, and Safari
             style.appendChild(document.createTextNode(cssText));
+            head.appendChild(style);
         }
-
-        head.appendChild(style);
     }
 };
 
-},{}]},{},[1]);
+},{}],3:[function(require,module,exports){
+var css = "body .foo{background-color:#ccc;height:100px;line-height:100px;font-size:20px;text-align:center;background-image:url(modules/foo/images/foo.png)}body .bar{background-color:#eee;height:100px;line-height:100px;font-size:20px;text-align:center;background-image:url(modules/bar/images/bar.png)}body{font-family:Arial,Helvetica,sans-serif;background-color:#fff;font-size:12px}"; (require("/home/cheton/github/browserify-css").createStyle(css, { "href": "app.css"})); module.exports = css;
+},{"/home/cheton/github/browserify-css":2}],4:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    init: function() {
+        var container = document.getElementById('container');
+        var bar = document.createElement('div');
+        bar.setAttribute('class', 'bar');
+        bar.innerHTML = 'bar module';
+        container.appendChild(bar);
+    }
+};
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    init: function() {
+        var container = document.getElementById('container');
+        var foo = document.createElement('div');
+        foo.setAttribute('class', 'foo');
+        foo.innerHTML = 'foo module';
+        container.appendChild(foo);
+    }
+};
+
+},{}]},{},[1])
+
+
+//# sourceMappingURL=bundle.js.map

@@ -1,0 +1,23 @@
+{
+  "version": 3,
+  "sources": [
+    "node_modules/browserify/node_modules/browser-pack/_prelude.js",
+    "examples/submodules/index.js",
+    "browser.js",
+    "examples/submodules/app.css",
+    "examples/submodules/modules/bar/index.js",
+    "examples/submodules/modules/foo/index.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACRA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AClDA;;ACAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACXA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA",
+  "file": "generated.js",
+  "sourceRoot": "",
+  "sourcesContent": [
+    "(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\"function\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\"Cannot find module '\"+o+\"'\");throw f.code=\"MODULE_NOT_FOUND\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\"function\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})",
+    "'use strict';\n\nrequire('./app.css');\nvar foo = require('./modules/foo');\nvar bar = require('./modules/bar');\n\nfoo.init();\nbar.init();\n",
+    "'use strict';\n// For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.\n\nmodule.exports = {\n    // Create a <link> tag with optional data attributes\n    createLink: function(href, attributes) {\n        var head = document.head || document.getElementsByTagName('head')[0];\n        var link = document.createElement('link');\n\n        link.href = href;\n        link.rel = 'stylesheet';\n\n        for (var key in attributes) {\n            if ( ! attributes.hasOwnProperty(key)) {\n                continue;\n            }\n            var value = attributes[key];\n            link.setAttribute('data-' + key, value);\n        }\n\n        head.appendChild(link);\n    },\n    // Create a <style> tag with optional data attributes\n    createStyle: function(cssText, attributes) {\n        var head = document.head || document.getElementsByTagName('head')[0],\n            style = document.createElement('style');\n\n        style.type = 'text/css';\n\n        for (var key in attributes) {\n            if ( ! attributes.hasOwnProperty(key)) {\n                continue;\n            }\n            var value = attributes[key];\n            style.setAttribute('data-' + key, value);\n        }\n        \n        if (style.sheet) { // for jsdom and IE9+\n            style.innerHTML = cssText;\n            style.sheet.cssText = cssText;\n            head.appendChild(style);\n        } else if (style.styleSheet) { // for IE8 and below\n            head.appendChild(style);\n            style.styleSheet.cssText = cssText;\n        } else { // for Chrome, Firefox, and Safari\n            style.appendChild(document.createTextNode(cssText));\n            head.appendChild(style);\n        }\n    }\n};\n",
+    "var css = \"body .foo{background-color:#ccc;height:100px;line-height:100px;font-size:20px;text-align:center;background-image:url(modules/foo/images/foo.png)}body .bar{background-color:#eee;height:100px;line-height:100px;font-size:20px;text-align:center;background-image:url(modules/bar/images/bar.png)}body{font-family:Arial,Helvetica,sans-serif;background-color:#fff;font-size:12px}\"; (require(\"/home/cheton/github/browserify-css\").createStyle(css, { \"href\": \"app.css\"})); module.exports = css;",
+    "'use strict';\n\nmodule.exports = {\n    init: function() {\n        var container = document.getElementById('container');\n        var bar = document.createElement('div');\n        bar.setAttribute('class', 'bar');\n        bar.innerHTML = 'bar module';\n        container.appendChild(bar);\n    }\n};\n",
+    "'use strict';\n\nmodule.exports = {\n    init: function() {\n        var container = document.getElementById('container');\n        var foo = document.createElement('div');\n        foo.setAttribute('class', 'foo');\n        foo.innerHTML = 'foo module';\n        container.appendChild(foo);\n    }\n};\n"
+  ]
+}

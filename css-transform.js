@@ -30,6 +30,12 @@ var cssTransform = function(options, filename, callback) {
     if (isRelativePath(rootDir)) {
         rootDir = path.join(process.cwd(), rootDir);
     }
+    var processRelativeUrl = function(url) {
+        return url;
+    };
+    if (_.isFunction(options.processRelativeUrl)) {
+        processRelativeUrl = options.processRelativeUrl;
+    }
 
     var parseCSSFile = function(filename) {
 
@@ -54,7 +60,8 @@ var cssTransform = function(options, filename, callback) {
                     var from = rootDir,
                         to = path.resolve(dirname, url);
 
-                    newUrl = path.relative(from, to);
+                    newUrl = processRelativeUrl(path.relative(from, to));
+
                     source = source.substr(0, urlRegEx.lastIndex - url.length - quoteLen - 1) + newUrl + source.substr(urlRegEx.lastIndex - quoteLen - 1);
                 }
 
