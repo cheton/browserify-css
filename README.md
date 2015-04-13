@@ -288,15 +288,15 @@ var bundleStream = browserify()
             //
             var prefix = '../node_modules/';
             if (_.startsWith(relativePath, prefix)) {
-                var vendorUrl = 'vendor/' + relativePath.substring(prefix.length);
+                var vendorPath = 'vendor/' + relativePath.substring(prefix.length);
                 var source = path.join(rootDir, relativePath);
-                var target = path.join(rootDir, vendorUrl);
+                var target = path.join(rootDir, vendorPath);
 
                 gutil.log('Copying file from ' + JSON.stringify(source) + ' to ' + JSON.stringify(target));
                 fse.copySync(source, target);
 
-                // Returns a new url with original query string and hash fragments
-                return vendorUrl + queryStringAndHash;
+                // Returns a new path string with original query string and hash fragments
+                return vendorPath + queryStringAndHash;
             }
 
             return relativeUrl;
