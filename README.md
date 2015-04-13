@@ -126,7 +126,7 @@ var browserify = require('browserify');
 browserify(options)
     .add('src/index.js')
     .transform(require('browserify-css'), {
-        rootDir: '.',
+        rootDir: 'src',
         processRelativeUrl: function(relativeUrl) {
             return relativeUrl;
         }
@@ -143,7 +143,7 @@ var browserify = require('browserify');
 browserify(options)
     .add('src/index.js')
     .transform(require('browserify-css'), {
-        rootDir: '.',
+        rootDir: 'src',
         processRelativeUrl: function(relativeUrl) {
             if (_.contains(['.jpg','.png','.gif'], path.extname(relativeUrl))) {
                 // Embed image data with data URI
