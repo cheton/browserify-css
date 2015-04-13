@@ -1,24 +1,18 @@
 'use strict';
 
+var _ = require('lodash');
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
+var requireDir = require('require-dir');
 
-var tasks = {
-    lintjs: function() {
-        var jshintConfig = require('./config/jshint');
-        return gulp.src([
-            '*.js',
-            '*.json',
-            'examples/**/*.js',
-            '!examples/**/bundle.js'
-        ])
-        .pipe(jshint(jshintConfig))
-        .pipe(jshint.reporter());
-    }
-};
+// Require all tasks in gulp/tasks, including subfolders
+var tasks = requireDir('./gulp/tasks', {recursive: true});
 
-gulp.task('lint:js', tasks.lintjs);
+_.each(tasks, function(task, relativePath) {
+    console.assert(_.isFunction(task), 'gulp/tasks/%s: module\'s export is not a function', relativePath);
+    task({
+        config: require('./gulp/config'),
+        errorHandler: require('./gulp/error-handler')
+    });
+});
 
-gulp.task('default', [
-    'lint:js'
-]);
+gulp.task('default', ['build']);

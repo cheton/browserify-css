@@ -122,8 +122,50 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+### processRelativeUrl
+
+Type: `Function`
+
+The `processRelativeUrl` option accepts a function which takes one argument (the relative url) and returns the original `relativeUrl` string or the converted result. For example:
+```javascript
+var browserify = require('browserify');
+
+browserify(options)
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        rootDir: '.',
+        processRelativeUrl: function(relativeUrl) {
+            return relativeUrl;
+        }
+    })
+    .bundle()
+```
+
+You can embed the image data directly into the CSS file with data URI, like so:
+```javascript
+var _ = require('lodash');
+var path = require('path');
+var browserify = require('browserify');
+
+browserify(options)
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        rootDir: '.',
+        processRelativeUrl: function(relativeUrl) {
+            if (_.contains(['.jpg','.png','.gif'], path.extname(relativeUrl))) {
+                // Embed image data with data URI
+                var DataUri = require('datauri');
+                var dUri = new DataUri(relativeUrl);
+                return dUri.content;
+            }
+            return relativeUrl;
+        }
+    })
+    .bundle()
+```
+
 ## FAQ 
-### How do I include CSS files located inside the node_modules folder?
+### 1. How do I include CSS files located inside the node_modules folder?
 You can choose one of the following methods to include CSS files located inside the node_modules folder:
 
 1. The easiest way to do this is using the `@import` rule. For example:
@@ -173,6 +215,95 @@ You can choose one of the following methods to include CSS files located inside 
   ``` bash
   $ browserify -t browserify-css app.js > bundle.js 
   ```
+
+### 2. How do I load font and image files from node_modules?
+
+Assume that you have the following directory structure:
+```
+package.json
+src/
+    index.js
+    index.css
+node_modules/
+    bootstrap/
+        dist/
+            css/
+                bootstrap.css
+dist/
+    vendor/
+        bootstrap/
+            dist/
+                css/
+                    bootstrap.css
+    bundle.js
+```
+
+The `index.css` uses `@import` to import external style sheets:
+```css
+@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
+```
+
+The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
+
+For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
+```css
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+         url('../fonts/glyphicons-halflings-regular.woff') format('woff'),
+         url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+         url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+```
+
+The example below illustrates the use of the `processRelativeUrl` option:
+```javascript
+var gulp = require('gulp');
+var path = require('path');
+var browserify = require('browserify');
+var sourceStream = require('vinyl-source-stream');
+
+var bundleStream = browserify()
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        rootDir: 'src',
+        processRelativeUrl: function(relativeUrl) {
+            var stripQueryStringAndHashFromPath = function(url) {
+                return url.split('?')[0].split('#')[0];
+            };
+            var rootDir = path.resolve(process.cwd(), 'src');
+            var relativePath = stripQueryStringAndHashFromPath(relativeUrl);
+            var queryStringAndHash = relativeUrl.substring(relativePath.length);
+
+            //
+            // Copying files from '../node_modules/bootstrap/' to 'dist/vendor/bootstrap/'
+            //
+            var prefix = '../node_modules/';
+            if (_.startsWith(relativePath, prefix)) {
+                var vendorUrl = 'vendor/' + relativePath.substring(prefix.length);
+                var source = path.join(rootDir, relativePath);
+                var target = path.join(rootDir, vendorUrl);
+
+                gutil.log('Copying file from ' + JSON.stringify(source) + ' to ' + JSON.stringify(target));
+                fse.copySync(source, target);
+
+                // Returns a new url with original query string and hash fragments
+                return vendorUrl + queryStringAndHash;
+            }
+
+            return relativeUrl;
+        }
+    })
+    .bundle();
+
+bundleStream
+    .pipe(sourceStream(bundleFile))
+    .pipe(gulp.dest(browserifyConfig.dest));
+
+```
+
 
 ## License
 
