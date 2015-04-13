@@ -3,7 +3,6 @@
 var css = require('css');
 var url = require('url');
 var _ = require('lodash');
-var _str = require('underscore.string');
 var fs = require('fs');
 var path = require('path');
 var concat = require('concat-stream');
@@ -100,7 +99,7 @@ var cssTransform = function(options, filename, callback) {
                           result[4] || // 'path/to/foo.css'       result[4] = path/to/foo.css
                           result[5];   // "path/to/foo.css"       result[5] = path/to/foo.css
 
-                url = _str.trim(url);
+                url = _.trim(url);
 
                 if (isExternalURL(url)) {
                     externalURLs.push(url);
