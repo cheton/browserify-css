@@ -1,6 +1,6 @@
 {
   "name": "browserify-css",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "A Browserify transform for bundling, rebasing, inlining, and minifying CSS files",
   "main": "./index.js",
   "browser": "./browser.js",
@@ -30,7 +30,7 @@
     "clean-css": "2.2.x",
     "concat-stream": "1.4.x",
     "css": "1.6.x",
-    "lodash": "2.4.x",
+    "lodash": "3.6.x",
     "through2": "0.6.x",
     "underscore.string": "2.4.x"
   },
@@ -43,7 +43,6 @@
     "gulp-jshint": "^1.9.2",
     "gulp-util": "^3.0.4",
     "jsdom": "^3.1.2",
-    "lodash": "^3.6.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
     "tap": "^0.7.1",
