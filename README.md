@@ -165,7 +165,7 @@ browserify(options)
 ```
 
 ## FAQ 
-### How do I include CSS files located inside the node_modules folder?
+### 1. How do I include CSS files located inside the node_modules folder?
 You can choose one of the following methods to include CSS files located inside the node_modules folder:
 
 1. The easiest way to do this is using the `@import` rule. For example:
@@ -216,7 +216,7 @@ You can choose one of the following methods to include CSS files located inside 
   $ browserify -t browserify-css app.js > bundle.js 
   ```
 
-### How do I load font and image files from node_modules?
+### 2. How do I load font and image files from node_modules?
 
 Assume that you have the following directory structure:
 ```
@@ -239,11 +239,12 @@ dist/
 ```
 
 The `index.css` uses `@import` to import external style sheets:
-```
+```css
 @import url("../node_modules/bootstrap/dist/css/bootstrap.css");
 ```
 
 The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
+
 For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
 ```css
 @font-face {
