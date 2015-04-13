@@ -230,12 +230,17 @@ node_modules/
             css/
                 bootstrap.css
 dist/
+```
+
+All output files are created under the `dist` directory:
+``` bash
+dist/
+    bundle.js
     vendor/
         bootstrap/
             dist/
                 css/
                     bootstrap.css
-    bundle.js
 ```
 
 The `index.css` uses `@import` to import external style sheets:
