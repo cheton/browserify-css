@@ -30,8 +30,8 @@ var cssTransform = function(options, filename, callback) {
     if (isRelativePath(rootDir)) {
         rootDir = path.join(process.cwd(), rootDir);
     }
-    var processRelativeUrl = function(url) {
-        return url;
+    var processRelativeUrl = function(relativeUrl) {
+        return relativeUrl;
     };
     if (_.isFunction(options.processRelativeUrl)) {
         processRelativeUrl = options.processRelativeUrl;
