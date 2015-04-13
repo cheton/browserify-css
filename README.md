@@ -218,6 +218,93 @@ You can choose one of the following methods to include CSS files located inside 
   $ browserify -t browserify-css app.js > bundle.js 
   ```
 
+### How do I load font and image files from node_modules?
+
+Assume that you have the following directory structure:
+```
+package.json
+src/
+    index.js
+    index.css
+node_modules/
+    bootstrap/
+        dist/
+            css/
+                bootstrap.css
+dist/
+    vendor/
+        bootstrap/
+            dist/
+                css/
+                    bootstrap.css
+    bundle.js
+```
+
+The `index.css` uses `@import` to import external style sheets:
+```
+@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
+```
+
+The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`. For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
+```css
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+         url('../fonts/glyphicons-halflings-regular.woff') format('woff'),
+         url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+         url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+```
+
+The example below illustrates the use of the `processRelativeUrl` option:
+```javascript
+var gulp = require('gulp');
+var path = require('path');
+var browserify = require('browserify');
+var sourceStream = require('vinyl-source-stream');
+
+var bundleStream = browserify()
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        'rootDir': 'src',
+        'processRelativeUrl': function(relativeUrl) {
+            var stripQueryStringAndHashFromPath = function(url) {
+                return url.split('?')[0].split('#')[0];
+            };
+            var rootDir = path.resolve(process.cwd(), 'src');
+            var relativePath = stripQueryStringAndHashFromPath(relativeUrl);
+            var queryStringAndHash = relativeUrl.substring(relativePath.length);
+
+            //
+            // Copying files from '../node_modules/bootstrap/' to 'dist/vendor/bootstrap/'
+            //
+            var prefix = '../node_modules/';
+            if (_.startsWith(relativePath, prefix)) {
+                var vendorUrl = 'vendor/' + relativePath.substring(prefix.length);
+                var source = path.join(rootDir, relativePath);
+                var target = path.join(rootDir, vendorUrl);
+
+                gutil.log('Copying file from ' + JSON.stringify(source) + ' to ' + JSON.stringify(target));
+                fse.copySync(source, target);
+
+                // Returns a new url with original query string and hash fragments
+                return vendorUrl + queryStringAndHash;
+            }
+
+            return relativeUrl;
+        }
+    })
+    .bundle();
+
+bundleStream
+    .pipe(sourceStream(bundleFile))
+    .pipe(gulp.dest(browserifyConfig.dest));
+
+```
+
+
 ## License
 
 Copyright (c) 2014-2015 Cheton Wu
