@@ -30,13 +30,13 @@ console.log(css);
 ```
 
 You can compile your app by passing -t browserify-css to browserify:
-```
+``` bash
 $ browserify -t browserify-css app.js > bundle.js
 ```
 
 Each `require('./path/to/file.css')` call will concatenate CSS files with @import statements, rebasing urls, inlining @import, and minifying CSS. It will add a style tag with an optional data-href attribute to the head section of the document during runtime:
 
-```
+``` html
 <html>
 <head>
     <style type="text/css" data-href="app.css">...</style>
@@ -120,7 +120,7 @@ Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpaw
 Type: `Function`
 
 The `processRelativeUrl` option accepts a function which takes one argument (the relative url) and returns the original `relativeUrl` string or the converted result. For example:
-```javascript
+``` javascript
 var browserify = require('browserify');
 
 browserify(options)
@@ -135,7 +135,7 @@ browserify(options)
 ```
 
 You can embed the image data directly into the CSS file with data URI, like so:
-```javascript
+``` javascript
 var _ = require('lodash');
 var path = require('path');
 var browserify = require('browserify');
@@ -192,7 +192,7 @@ You can choose one of the following methods to include CSS files located inside 
 
   or use the API directly:
 
-  ``` js
+  ``` javascript
   var browserify = require('browserify');
   var b = browserify('./app.js');
   b.transform('browserify-css', {global: true});
@@ -219,7 +219,7 @@ You can choose one of the following methods to include CSS files located inside 
 ### 2. How do I load font and image files from node_modules?
 
 Assume that you have the following directory structure:
-```
+``` bash
 package.json
 src/
     index.js
@@ -239,14 +239,14 @@ dist/
 ```
 
 The `index.css` uses `@import` to import external style sheets:
-```css
+``` css
 @import url("../node_modules/bootstrap/dist/css/bootstrap.css");
 ```
 
 The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
 
 For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
-```css
+``` css
 @font-face {
     font-family: 'Glyphicons Halflings';
     src: url('../fonts/glyphicons-halflings-regular.eot');
@@ -259,7 +259,7 @@ For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstra
 ```
 
 The example below illustrates the use of the `processRelativeUrl` option:
-```javascript
+``` javascript
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var path = require('path');
