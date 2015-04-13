@@ -122,6 +122,50 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+### processRelativeUrl
+
+Type: `Function`
+
+The `processRelativeUrl` option accepts a function which takes one argument (the relative url) and returns the original `relativeUrl` string or the converted result.
+
+The example might look like this:
+```javascript
+var browserify = require('browserify');
+
+browserify(options)
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        'rootDir': '.',
+        'processRelativeUrl': function(relativeUrl) {
+            return relativeUrl;
+        }
+    })
+    .bundle()
+```
+
+You can embed the image data directly into the CSS file with data URI. For example:
+```javascript
+var _ = require('lodash');
+var path = require('path');
+var browserify = require('browserify');
+
+browserify(options)
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        'rootDir': '.',
+        'processRelativeUrl': function(relativeUrl) {
+            if (_.contains(['.jpg','.png','.gif'], path.extname(relativeUrl))) {
+                // Embed image data with data URI
+                var DataUri = require('datauri');
+                var dUri = new DataUri(relativeUrl);
+                return dUri.content;
+            }
+            return relativeUrl;
+        }
+    })
+    .bundle()
+```
+
 ## FAQ 
 ### How do I include CSS files located inside the node_modules folder?
 You can choose one of the following methods to include CSS files located inside the node_modules folder:
