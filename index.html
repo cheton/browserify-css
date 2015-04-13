@@ -55,17 +55,15 @@
 
 <p>You can compile your app by passing -t browserify-css to browserify:</p>
 
-<pre><code>$ browserify -t browserify-css app.js &gt; bundle.js
-</code></pre>
+<div class="highlight highlight-bash"><pre>$ browserify -t browserify-css app.js <span class="pl-k">&gt;</span> bundle.js</pre></div>
 
 <p>Each <code>require('./path/to/file.css')</code> call will concatenate CSS files with <a href="https://github.com/import" class="user-mention">@import</a> statements, rebasing urls, inlining <a href="https://github.com/import" class="user-mention">@import</a>, and minifying CSS. It will add a style tag with an optional data-href attribute to the head section of the document during runtime:</p>
 
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-    &lt;style type="text/css" data-href="app.css"&gt;...&lt;/style&gt;
-&lt;/head&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">style</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">data-href</span>=<span class="pl-s"><span class="pl-pds">"</span>app.css<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">head</span>&gt;</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">html</span>&gt;</span></pre></div>
 
 <h2>
 <a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
@@ -221,7 +219,7 @@ Default: <code>./</code></p>
 
 <p>or use the API directly:</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> b <span class="pl-k">=</span> browserify(<span class="pl-s"><span class="pl-pds">'</span>./app.js<span class="pl-pds">'</span></span>);
 b.transform(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>, {global<span class="pl-k">:</span> <span class="pl-c1">true</span>});
 b.bundle().pipe(<span class="pl-c1">process</span>.stdout);</pre></div>
@@ -250,7 +248,7 @@ b.bundle().pipe(<span class="pl-c1">process</span>.stdout);</pre></div>
 
 <p>Assume that you have the following directory structure:</p>
 
-<pre><code>package.json
+<div class="highlight highlight-bash"><pre>package.json
 src/
     index.js
     index.css
@@ -259,14 +257,17 @@ node_modules/
         dist/
             css/
                 bootstrap.css
-dist/
+dist/</pre></div>
+
+<p>All output files are created under the <code>dist</code> directory:</p>
+
+<div class="highlight highlight-bash"><pre>dist/
+    bundle.js
     vendor/
         bootstrap/
             dist/
                 css/
-                    bootstrap.css
-    bundle.js
-</code></pre>
+                    bootstrap.css</pre></div>
 
 <p>The <code>index.css</code> uses <code>@import</code> to import external style sheets:</p>
 
@@ -289,6 +290,7 @@ dist/
 <p>The example below illustrates the use of the <code>processRelativeUrl</code> option:</p>
 
 <div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> gulp <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> gutil <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp-util<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> sourceStream <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>vinyl-source-stream<span class="pl-pds">'</span></span>);
