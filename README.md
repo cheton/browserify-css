@@ -103,13 +103,6 @@ Default:
 
 If verbose is set to true, the path to CSS will be specified in the data-href attribute inside the style tag
 
-### rootDir
-
-Type: `String`
-Default: `./`
-
-An absolute path to resolve relative paths against the project's base directory.
-
 ### minify
 
 Type: `Boolean`
@@ -163,6 +156,13 @@ browserify(options)
     })
     .bundle()
 ```
+
+### rootDir
+
+Type: `String`
+Default: `./`
+
+An absolute path to resolve relative paths against the project's base directory.
 
 ## FAQ 
 ### 1. How do I include CSS files located inside the node_modules folder?
