@@ -221,6 +221,7 @@ You can choose one of the following methods to include CSS files located inside 
 Assume that you have the following directory structure:
 ``` bash
 package.json
+dist/
 src/
     index.js
     index.css
@@ -229,10 +230,14 @@ node_modules/
         dist/
             css/
                 bootstrap.css
-dist/
 ```
 
-All output files are created under the `dist` directory:
+The `index.css` uses `@import` to import external style sheets:
+``` css
+@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
+```
+
+All output files, including the generated `bundle.js`, are created under the `dist` directory:
 ``` bash
 dist/
     bundle.js
@@ -243,12 +248,7 @@ dist/
                     bootstrap.css
 ```
 
-The `index.css` uses `@import` to import external style sheets:
-``` css
-@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
-```
-
-The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
+Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
 
 For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
 ``` css
