@@ -5,7 +5,7 @@ module.exports = function(options) {
     gulp.task('build', function(callback) {
         runSequence('clean',
             'jshint',
-            'browserify',
+            'bundles',
             callback
         );
     });
