@@ -153,7 +153,7 @@ Default: <code>{}</code></p>
 browserify(options)
     .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
     .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
-        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>,
+        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
         <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
             <span class="pl-k">return</span> relativeUrl;
         }
@@ -169,7 +169,7 @@ browserify(options)
 browserify(options)
     .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
     .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
-        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>,
+        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
         <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
             <span class="pl-k">if</span> (_.contains([<span class="pl-s"><span class="pl-pds">'</span>.jpg<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.png<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.gif<span class="pl-pds">'</span></span>], path.extname(relativeUrl))) {
                 <span class="pl-c">// Embed image data with data URI</span>
