@@ -126,24 +126,22 @@ Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpaw
 
 Type: `Function`
 
-The `processRelativeUrl` option accepts a function which takes one argument (the relative url) and returns the original `relativeUrl` string or the converted result.
-
-The example might look like this:
+The `processRelativeUrl` option accepts a function which takes one argument (the relative url) and returns the original `relativeUrl` string or the converted result. For example:
 ```javascript
 var browserify = require('browserify');
 
 browserify(options)
     .add('src/index.js')
     .transform(require('browserify-css'), {
-        'rootDir': '.',
-        'processRelativeUrl': function(relativeUrl) {
+        rootDir: '.',
+        processRelativeUrl: function(relativeUrl) {
             return relativeUrl;
         }
     })
     .bundle()
 ```
 
-You can embed the image data directly into the CSS file with data URI. For example:
+You can embed the image data directly into the CSS file with data URI, like so:
 ```javascript
 var _ = require('lodash');
 var path = require('path');
@@ -152,8 +150,8 @@ var browserify = require('browserify');
 browserify(options)
     .add('src/index.js')
     .transform(require('browserify-css'), {
-        'rootDir': '.',
-        'processRelativeUrl': function(relativeUrl) {
+        rootDir: '.',
+        processRelativeUrl: function(relativeUrl) {
             if (_.contains(['.jpg','.png','.gif'], path.extname(relativeUrl))) {
                 // Embed image data with data URI
                 var DataUri = require('datauri');
@@ -268,8 +266,8 @@ var sourceStream = require('vinyl-source-stream');
 var bundleStream = browserify()
     .add('src/index.js')
     .transform(require('browserify-css'), {
-        'rootDir': 'src',
-        'processRelativeUrl': function(relativeUrl) {
+        rootDir: 'src',
+        processRelativeUrl: function(relativeUrl) {
             var stripQueryStringAndHashFromPath = function(url) {
                 return url.split('?')[0].split('#')[0];
             };
