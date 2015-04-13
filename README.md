@@ -261,6 +261,7 @@ For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstra
 The example below illustrates the use of the `processRelativeUrl` option:
 ```javascript
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var path = require('path');
 var browserify = require('browserify');
 var sourceStream = require('vinyl-source-stream');
