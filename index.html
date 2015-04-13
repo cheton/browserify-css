@@ -1,38 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta charset="UTF-8">
     <title>browserify-css by cheton</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+    <section class="page-header">
+      <h1 class="project-name">browserify-css</h1>
+      <h2 class="project-tagline">A Browserify transform for bundling, rebasing, inlining, and minifying CSS files.</h2>
+      <a href="https://github.com/cheton/browserify-css" class="btn">View on GitHub</a>
+      <a href="https://github.com/cheton/browserify-css/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/cheton/browserify-css/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <header>
-          <h1>browserify-css</h1>
-          <h2>A Browserify transform for bundling, rebasing, inlining, and minifying CSS files.</h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/cheton/browserify-css/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/cheton/browserify-css/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/cheton/browserify-css" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h1>
-<a id="browserify-css-" class="anchor" href="#browserify-css-" aria-hidden="true"><span class="octicon octicon-link"></span></a>browserify-css <a href="https://travis-ci.org/cheton/browserify-css"><img src="https://travis-ci.org/cheton/browserify-css.svg?branch=master" alt="build status"></a>
+    <section class="main-content">
+      <h1>
+<a id="browserify-css--" class="anchor" href="#browserify-css--" aria-hidden="true"><span class="octicon octicon-link"></span></a>browserify-css <a href="https://travis-ci.org/cheton/browserify-css"><img src="https://travis-ci.org/cheton/browserify-css.svg?branch=master" alt="build status"></a> <a href="https://coveralls.io/r/cheton/browserify-css"><img src="https://coveralls.io/repos/cheton/browserify-css/badge.svg" alt="Coverage Status"></a>
 </h1>
 
 <p><a href="https://nodei.co/npm/browserify-css/"><img src="https://nodei.co/npm/browserify-css.png?downloads=true&amp;stars=true" alt="NPM"></a></p>
@@ -54,16 +42,16 @@
 
 <p>app.css:</p>
 
-<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-s3">url</span>(<span class="pl-s1"><span class="pl-pds">"</span>modules/foo/index.css<span class="pl-pds">"</span></span>);
-<span class="pl-k">@import</span> <span class="pl-s3">url</span>(<span class="pl-s1"><span class="pl-pds">"</span>modules/bar/index.css<span class="pl-pds">"</span></span>);
+<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">"</span>modules/foo/index.css<span class="pl-pds">"</span></span>);
+<span class="pl-k">@import</span> <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">"</span>modules/bar/index.css<span class="pl-pds">"</span></span>);
 <span class="pl-ent">body</span> {
-    <span class="pl-mp"><span class="pl-s3">background-color</span></span>: <span class="pl-c1">#fff</span>;
+    <span class="pl-c1"><span class="pl-c1">background-color</span></span>: <span class="pl-c1">#fff</span>;
 }</pre></div>
 
 <p>app.js:</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-s">var</span> css <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);
-<span class="pl-en">console</span><span class="pl-s3">.log</span>(css);</pre></div>
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> css <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);
+<span class="pl-en">console</span><span class="pl-c1">.log</span>(css);</pre></div>
 
 <p>You can compile your app by passing -t browserify-css to browserify:</p>
 
@@ -85,25 +73,25 @@
 <p>You can set configuration to your package.json file:</p>
 
 <div class="highlight highlight-json"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: {
-        <span class="pl-s1"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
-        <span class="pl-s1"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
-        <span class="pl-s1"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
     }
 }</pre></div>
 
 <p>or use an external configuration file like below:</p>
 
 <div class="highlight highlight-json"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>./config/browserify-css.js<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>./config/browserify-css.js<span class="pl-pds">"</span></span>
 }</pre></div>
 
 <p>config/browserify-css.js:</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-sv">module</span>.exports <span class="pl-k">=</span> {
-    <span class="pl-s1"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
+<div class="highlight highlight-js"><pre><span class="pl-c1">module</span>.exports <span class="pl-k">=</span> {
+    <span class="pl-s"><span class="pl-pds">"</span>autoInject<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>minify<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>rootDir<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>
 };</pre></div>
 
 <p>Furthermore, browserify-css transform can obtain options from the command-line with subarg syntax:</p>
@@ -134,18 +122,10 @@ Default: <code>true</code></p>
 Default: </p>
 
 <div class="highlight highlight-json"><pre>{
-    <span class="pl-ii">verbose</span>: <span class="pl-c1">true</span>
+    <span class="pl-s"><span class="pl-pds">"</span>verbose<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>
 }</pre></div>
 
 <p>If verbose is set to true, the path to CSS will be specified in the data-href attribute inside the style tag</p>
-
-<h3>
-<a id="rootdir" class="anchor" href="#rootdir" aria-hidden="true"><span class="octicon octicon-link"></span></a>rootDir</h3>
-
-<p>Type: <code>String</code>
-Default: <code>./</code></p>
-
-<p>An absolute path to resolve relative paths against the project's base directory.</p>
 
 <h3>
 <a id="minify" class="anchor" href="#minify" aria-hidden="true"><span class="octicon octicon-link"></span></a>minify</h3>
@@ -161,11 +141,60 @@ Default: <code>{}</code></p>
 
 <p>Check out a list of CSS minify options at <a href="https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically">CleanCSS</a>.</p>
 
+<h3>
+<a id="processrelativeurl" class="anchor" href="#processrelativeurl" aria-hidden="true"><span class="octicon octicon-link"></span></a>processRelativeUrl</h3>
+
+<p>Type: <code>Function</code></p>
+
+<p>The <code>processRelativeUrl</code> option accepts a function which takes one argument (the relative url) and returns the original <code>relativeUrl</code> string or the converted result. For example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+
+browserify(options)
+    .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
+    .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
+        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>,
+        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+            <span class="pl-k">return</span> relativeUrl;
+        }
+    })
+    .bundle()</pre></div>
+
+<p>You can embed the image data directly into the CSS file with data URI, like so:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> _ <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>lodash<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+
+browserify(options)
+    .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
+    .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
+        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>,
+        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+            <span class="pl-k">if</span> (_.contains([<span class="pl-s"><span class="pl-pds">'</span>.jpg<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.png<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.gif<span class="pl-pds">'</span></span>], path.extname(relativeUrl))) {
+                <span class="pl-c">// Embed image data with data URI</span>
+                <span class="pl-k">var</span> DataUri <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>datauri<span class="pl-pds">'</span></span>);
+                <span class="pl-k">var</span> dUri <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">DataUri</span>(relativeUrl);
+                <span class="pl-k">return</span> dUri.<span class="pl-c1">content</span>;
+            }
+            <span class="pl-k">return</span> relativeUrl;
+        }
+    })
+    .bundle()</pre></div>
+
+<h3>
+<a id="rootdir" class="anchor" href="#rootdir" aria-hidden="true"><span class="octicon octicon-link"></span></a>rootDir</h3>
+
+<p>Type: <code>String</code>
+Default: <code>./</code></p>
+
+<p>An absolute path to resolve relative paths against the project's base directory.</p>
+
 <h2>
 <a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h2>
 
 <h3>
-<a id="how-do-i-include-css-files-located-inside-the-node_modules-folder" class="anchor" href="#how-do-i-include-css-files-located-inside-the-node_modules-folder" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do I include CSS files located inside the node_modules folder?</h3>
+<a id="1-how-do-i-include-css-files-located-inside-the-node_modules-folder" class="anchor" href="#1-how-do-i-include-css-files-located-inside-the-node_modules-folder" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. How do I include CSS files located inside the node_modules folder?</h3>
 
 <p>You can choose one of the following methods to include CSS files located inside the node_modules folder:</p>
 
@@ -175,15 +204,15 @@ Default: <code>{}</code></p>
 
 <p>app.js:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);</pre></div>
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app.css<span class="pl-pds">'</span></span>);</pre></div>
 
 <p>app.css:</p>
 
 <div class="highlight highlight-css"><pre><span class="pl-c">/* Use CSS from your node_modules folder */</span>
-<span class="pl-k">@import</span> <span class="pl-s1"><span class="pl-pds">"</span>node_modules/foo/foo.css<span class="pl-pds">"</span></span>;
+<span class="pl-k">@import</span> <span class="pl-s"><span class="pl-pds">"</span>node_modules/foo/foo.css<span class="pl-pds">"</span></span>;
 
 <span class="pl-c">/* Or your own relative files */</span>
-<span class="pl-k">@import</span> <span class="pl-s1"><span class="pl-pds">"</span>styles/common.css<span class="pl-pds">"</span></span>;</pre></div>
+<span class="pl-k">@import</span> <span class="pl-s"><span class="pl-pds">"</span>styles/common.css<span class="pl-pds">"</span></span>;</pre></div>
 </li>
 <li>
 <p>Use the global transform option (i.e. <code>--global-transform</code> or <code>-g</code>) on the command line to transform all files in a node_modules directory:</p>
@@ -192,10 +221,10 @@ Default: <code>{}</code></p>
 
 <p>or use the API directly:</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-s">var</span> browserify <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
-<span class="pl-s">var</span> b <span class="pl-k">=</span> browserify(<span class="pl-s1"><span class="pl-pds">'</span>./app.js<span class="pl-pds">'</span></span>);
-b.transform(<span class="pl-s1"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>, {global<span class="pl-k">:</span> <span class="pl-c1">true</span>});
-b.bundle().pipe(<span class="pl-sv">process</span>.stdout);</pre></div>
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> b <span class="pl-k">=</span> browserify(<span class="pl-s"><span class="pl-pds">'</span>./app.js<span class="pl-pds">'</span></span>);
+b.transform(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>, {global<span class="pl-k">:</span> <span class="pl-c1">true</span>});
+b.bundle().pipe(<span class="pl-c1">process</span>.stdout);</pre></div>
 
 <p>See <a href="https://github.com/substack/node-browserify#btransformtr-opts">browserify transform options</a> for details.</p>
 </li>
@@ -205,8 +234,8 @@ b.bundle().pipe(<span class="pl-sv">process</span>.stdout);</pre></div>
 <p>node_modules/foo/package.json:</p>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="pl-s1"><span class="pl-pds">"</span>browserify<span class="pl-pds">"</span></span>: {
-    <span class="pl-s1"><span class="pl-pds">"</span>transform<span class="pl-pds">"</span></span>: [<span class="pl-s1"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>]
+  <span class="pl-s"><span class="pl-pds">"</span>browserify<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>transform<span class="pl-pds">"</span></span>: [<span class="pl-s"><span class="pl-pds">"</span>browserify-css<span class="pl-pds">"</span></span>]
   }
 }</pre></div>
 
@@ -216,19 +245,108 @@ b.bundle().pipe(<span class="pl-sv">process</span>.stdout);</pre></div>
 </li>
 </ol>
 
+<h3>
+<a id="2-how-do-i-load-font-and-image-files-from-node_modules" class="anchor" href="#2-how-do-i-load-font-and-image-files-from-node_modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. How do I load font and image files from node_modules?</h3>
+
+<p>Assume that you have the following directory structure:</p>
+
+<pre><code>package.json
+src/
+    index.js
+    index.css
+node_modules/
+    bootstrap/
+        dist/
+            css/
+                bootstrap.css
+dist/
+    vendor/
+        bootstrap/
+            dist/
+                css/
+                    bootstrap.css
+    bundle.js
+</code></pre>
+
+<p>The <code>index.css</code> uses <code>@import</code> to import external style sheets:</p>
+
+<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">"</span>../node_modules/bootstrap/dist/css/bootstrap.css<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>The generated <code>bundle.js</code> file is placed in the <code>dist</code> directory. Suppose that the <code>dist</code> directory is your web root, you might want to copy external font and images files from <code>../node_modules/</code> to <code>dist/vendor/</code>.</p>
+
+<p>For example, the <code>@font-face</code> rules in <code>node_modules/bootstrap/dist/css/bootstrap.css</code>:</p>
+
+<div class="highlight highlight-css"><pre><span class="pl-k">@font-face</span> {
+    <span class="pl-c1"><span class="pl-c1">font-family</span></span>: <span class="pl-s"><span class="pl-pds">'</span>Glyphicons Halflings<span class="pl-pds">'</span></span>;
+    <span class="pl-c1"><span class="pl-c1">src</span></span>: <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.eot<span class="pl-pds">'</span></span>);
+    <span class="pl-c1"><span class="pl-c1">src</span></span>: <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.eot?#iefix<span class="pl-pds">'</span></span>) <span class="pl-c1">format</span>(<span class="pl-s"><span class="pl-pds">'</span>embedded-opentype<span class="pl-pds">'</span></span>),
+         <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.woff2<span class="pl-pds">'</span></span>) <span class="pl-c1">format</span>(<span class="pl-s"><span class="pl-pds">'</span>woff2<span class="pl-pds">'</span></span>),
+         <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.woff<span class="pl-pds">'</span></span>) <span class="pl-c1">format</span>(<span class="pl-s"><span class="pl-pds">'</span>woff<span class="pl-pds">'</span></span>),
+         <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.ttf<span class="pl-pds">'</span></span>) <span class="pl-c1">format</span>(<span class="pl-s"><span class="pl-pds">'</span>truetype<span class="pl-pds">'</span></span>),
+         <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">'</span>../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular<span class="pl-pds">'</span></span>) <span class="pl-c1">format</span>(<span class="pl-s"><span class="pl-pds">'</span>svg<span class="pl-pds">'</span></span>);
+}</pre></div>
+
+<p>The example below illustrates the use of the <code>processRelativeUrl</code> option:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> gulp <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> sourceStream <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>vinyl-source-stream<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">var</span> bundleStream <span class="pl-k">=</span> browserify()
+    .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
+    .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
+        rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
+        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+            <span class="pl-k">var</span> <span class="pl-en">stripQueryStringAndHashFromPath</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">url</span>) {
+                <span class="pl-k">return</span> url.<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-pds">'</span>?<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>].<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>];
+            };
+            <span class="pl-k">var</span> rootDir <span class="pl-k">=</span> path.resolve(<span class="pl-c1">process</span>.cwd(), <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>);
+            <span class="pl-k">var</span> relativePath <span class="pl-k">=</span> stripQueryStringAndHashFromPath(relativeUrl);
+            <span class="pl-k">var</span> queryStringAndHash <span class="pl-k">=</span> relativeUrl.<span class="pl-c1">substring</span>(relativePath.<span class="pl-c1">length</span>);
+
+            <span class="pl-c">//</span>
+            <span class="pl-c">// Copying files from '../node_modules/bootstrap/' to 'dist/vendor/bootstrap/'</span>
+            <span class="pl-c">//</span>
+            <span class="pl-k">var</span> prefix <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>../node_modules/<span class="pl-pds">'</span></span>;
+            <span class="pl-k">if</span> (_.startsWith(relativePath, prefix)) {
+                <span class="pl-k">var</span> vendorUrl <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>vendor/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> relativePath.<span class="pl-c1">substring</span>(prefix.<span class="pl-c1">length</span>);
+                <span class="pl-k">var</span> source <span class="pl-k">=</span> path.<span class="pl-c1">join</span>(rootDir, relativePath);
+                <span class="pl-k">var</span> target <span class="pl-k">=</span> path.<span class="pl-c1">join</span>(rootDir, vendorUrl);
+
+                gutil<span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Copying file from <span class="pl-pds">'</span></span> <span class="pl-k">+</span> JSON.stringify(source) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> JSON.stringify(target));
+                fse.copySync(source, target);
+
+                <span class="pl-c">// Returns a new url with original query string and hash fragments</span>
+                <span class="pl-k">return</span> vendorUrl <span class="pl-k">+</span> queryStringAndHash;
+            }
+
+            <span class="pl-k">return</span> relativeUrl;
+        }
+    })
+    .bundle();
+
+bundleStream
+    .pipe(sourceStream(bundleFile))
+    .pipe(gulp.dest(browserifyConfig.dest));
+</pre></div>
+
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>MIT</p>
-        </section>
+<p>Copyright (c) 2014-2015 Cheton Wu</p>
 
-        <footer>
-          browserify-css is maintained by <a href="https://github.com/cheton">cheton</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+<p>Licensed under the <a href="https://github.com/cheton/browserify-css/blob/master/LICENSE">MIT License</a>.</p>
 
-        
-      </div>
-    </div>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/cheton/browserify-css">browserify-css</a> is maintained by <a href="https://github.com/cheton">cheton</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
   </body>
 </html>
+
