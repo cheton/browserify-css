@@ -243,7 +243,8 @@ The `index.css` uses `@import` to import external style sheets:
 @import url("../node_modules/bootstrap/dist/css/bootstrap.css");
 ```
 
-The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`. For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
+The generated `bundle.js` file is placed in the `dist` directory. Suppose that the `dist` directory is your web root, you might want to copy external font and images files from `../node_modules/` to `dist/vendor/`.
+For example, the `@font-face` rules in `node_modules/bootstrap/dist/css/bootstrap.css`:
 ```css
 @font-face {
     font-family: 'Glyphicons Halflings';
