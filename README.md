@@ -131,7 +131,7 @@ browserify(options)
             return relativeUrl;
         }
     })
-    .bundle()
+    .bundle();
 ```
 
 You can embed the image data directly into the CSS file with data URI, like so:
@@ -154,7 +154,7 @@ browserify(options)
             return relativeUrl;
         }
     })
-    .bundle()
+    .bundle();
 ```
 
 ### rootDir
