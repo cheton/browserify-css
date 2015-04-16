@@ -157,6 +157,8 @@ browserify(options)
     .bundle();
 ```
 
+You may also want to check out the  [FAQ](https://github.com/cheton/browserify-css#2-how-do-i-load-font-and-image-files-from-node_modules) for advanced usage.
+
 ### rootDir
 
 Type: `String`
