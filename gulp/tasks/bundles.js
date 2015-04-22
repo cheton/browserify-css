@@ -19,6 +19,7 @@ module.exports = function(options) {
             return browserify(bundleConfig.options)
                 .add(bundleConfig.src)
                 .transform(require('../../index'), bundleTransform['browserify-css'])
+                .require('./browser', {expose: 'browserify-css'})
                 .bundle()
                 .pipe(exorcist(bundleMapFile))
                 .pipe(sourceStream(bundleFile))
