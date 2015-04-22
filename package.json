@@ -31,8 +31,7 @@
     "concat-stream": "1.4.x",
     "css": "1.6.x",
     "lodash": "3.6.x",
-    "through2": "0.6.x",
-    "underscore.string": "2.4.x"
+    "through2": "0.6.x"
   },
   "devDependencies": {
     "browserify": "^8.1.3",
