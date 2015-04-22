@@ -1,6 +1,6 @@
 {
   "name": "browserify-css",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A Browserify transform for bundling, rebasing, inlining, and minifying CSS files",
   "main": "./index.js",
   "browser": "./browser.js",
