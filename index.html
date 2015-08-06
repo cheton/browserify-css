@@ -5,7 +5,7 @@
     <title>browserify-css by cheton</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
@@ -152,11 +152,11 @@ browserify(options)
     .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
     .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
         rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
-        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+        <span class="pl-en">processRelativeUrl</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
             <span class="pl-k">return</span> relativeUrl;
         }
     })
-    .bundle()</pre></div>
+    .bundle();</pre></div>
 
 <p>You can embed the image data directly into the CSS file with data URI, like so:</p>
 
@@ -168,7 +168,7 @@ browserify(options)
     .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
     .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
         rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
-        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+        <span class="pl-en">processRelativeUrl</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
             <span class="pl-k">if</span> (_.contains([<span class="pl-s"><span class="pl-pds">'</span>.jpg<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.png<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>.gif<span class="pl-pds">'</span></span>], path.extname(relativeUrl))) {
                 <span class="pl-c">// Embed image data with data URI</span>
                 <span class="pl-k">var</span> DataUri <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>datauri<span class="pl-pds">'</span></span>);
@@ -178,7 +178,9 @@ browserify(options)
             <span class="pl-k">return</span> relativeUrl;
         }
     })
-    .bundle()</pre></div>
+    .bundle();</pre></div>
+
+<p>You may also want to check out the  <a href="https://github.com/cheton/browserify-css#2-how-do-i-load-font-and-image-files-from-node_modules">FAQ</a> for advanced usage.</p>
 
 <h3>
 <a id="rootdir" class="anchor" href="#rootdir" aria-hidden="true"><span class="octicon octicon-link"></span></a>rootDir</h3>
@@ -249,6 +251,7 @@ b.bundle().pipe(<span class="pl-c1">process</span>.stdout);</pre></div>
 <p>Assume that you have the following directory structure:</p>
 
 <div class="highlight highlight-bash"><pre>package.json
+dist/
 src/
     index.js
     index.css
@@ -256,10 +259,13 @@ node_modules/
     bootstrap/
         dist/
             css/
-                bootstrap.css
-dist/</pre></div>
+                bootstrap.css</pre></div>
 
-<p>All output files are created under the <code>dist</code> directory:</p>
+<p>The <code>index.css</code> uses <code>@import</code> to import external style sheets:</p>
+
+<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">"</span>../node_modules/bootstrap/dist/css/bootstrap.css<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>All output files, including the generated <code>bundle.js</code>, are created under the <code>dist</code> directory:</p>
 
 <div class="highlight highlight-bash"><pre>dist/
     bundle.js
@@ -269,11 +275,7 @@ dist/</pre></div>
                 css/
                     bootstrap.css</pre></div>
 
-<p>The <code>index.css</code> uses <code>@import</code> to import external style sheets:</p>
-
-<div class="highlight highlight-css"><pre><span class="pl-k">@import</span> <span class="pl-c1">url</span>(<span class="pl-s"><span class="pl-pds">"</span>../node_modules/bootstrap/dist/css/bootstrap.css<span class="pl-pds">"</span></span>);</pre></div>
-
-<p>The generated <code>bundle.js</code> file is placed in the <code>dist</code> directory. Suppose that the <code>dist</code> directory is your web root, you might want to copy external font and images files from <code>../node_modules/</code> to <code>dist/vendor/</code>.</p>
+<p>Suppose that the <code>dist</code> directory is your web root, you might want to copy external font and images files from <code>../node_modules/</code> to <code>dist/vendor/</code>.</p>
 
 <p>For example, the <code>@font-face</code> rules in <code>node_modules/bootstrap/dist/css/bootstrap.css</code>:</p>
 
@@ -294,12 +296,13 @@ dist/</pre></div>
 <span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> browserify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> sourceStream <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>vinyl-source-stream<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> fse <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs-extra<span class="pl-pds">'</span></span>);
 
 <span class="pl-k">var</span> bundleStream <span class="pl-k">=</span> browserify()
     .<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>src/index.js<span class="pl-pds">'</span></span>)
     .transform(<span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>browserify-css<span class="pl-pds">'</span></span>), {
         rootDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>src<span class="pl-pds">'</span></span>,
-        <span class="pl-en">processRelativeUrl</span>: <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
+        <span class="pl-en">processRelativeUrl</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">relativeUrl</span>) {
             <span class="pl-k">var</span> <span class="pl-en">stripQueryStringAndHashFromPath</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">url</span>) {
                 <span class="pl-k">return</span> url.<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-pds">'</span>?<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>].<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>];
             };
@@ -312,15 +315,15 @@ dist/</pre></div>
             <span class="pl-c">//</span>
             <span class="pl-k">var</span> prefix <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>../node_modules/<span class="pl-pds">'</span></span>;
             <span class="pl-k">if</span> (_.startsWith(relativePath, prefix)) {
-                <span class="pl-k">var</span> vendorUrl <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>vendor/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> relativePath.<span class="pl-c1">substring</span>(prefix.<span class="pl-c1">length</span>);
+                <span class="pl-k">var</span> vendorPath <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>vendor/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> relativePath.<span class="pl-c1">substring</span>(prefix.<span class="pl-c1">length</span>);
                 <span class="pl-k">var</span> source <span class="pl-k">=</span> path.<span class="pl-c1">join</span>(rootDir, relativePath);
-                <span class="pl-k">var</span> target <span class="pl-k">=</span> path.<span class="pl-c1">join</span>(rootDir, vendorUrl);
+                <span class="pl-k">var</span> target <span class="pl-k">=</span> path.<span class="pl-c1">join</span>(rootDir, vendorPath);
 
-                gutil<span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Copying file from <span class="pl-pds">'</span></span> <span class="pl-k">+</span> JSON.stringify(source) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> JSON.stringify(target));
+                gutil<span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Copying file from <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">JSON</span>.stringify(source) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> to <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">JSON</span>.stringify(target));
                 fse.copySync(source, target);
 
-                <span class="pl-c">// Returns a new url with original query string and hash fragments</span>
-                <span class="pl-k">return</span> vendorUrl <span class="pl-k">+</span> queryStringAndHash;
+                <span class="pl-c">// Returns a new path string with original query string and hash fragments</span>
+                <span class="pl-k">return</span> vendorPath <span class="pl-k">+</span> queryStringAndHash;
             }
 
             <span class="pl-k">return</span> relativeUrl;
@@ -351,4 +354,3 @@ bundleStream
   
   </body>
 </html>
-
