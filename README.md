@@ -272,6 +272,7 @@ var gutil = require('gulp-util');
 var path = require('path');
 var browserify = require('browserify');
 var sourceStream = require('vinyl-source-stream');
+var fse = require('fs-extra');
 
 var bundleStream = browserify()
     .add('src/index.js')
