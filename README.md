@@ -166,6 +166,13 @@ Default: `./`
 
 An absolute path to resolve relative paths against the project's base directory.
 
+### rebaseUrls
+
+Type: `Boolean`
+Default: `true`
+
+If true, relative paths will be rebased in css files; if false, paths will be unchanged.
+
 ## FAQ 
 ### 1. How do I include CSS files located inside the node_modules folder?
 You can choose one of the following methods to include CSS files located inside the node_modules folder:
