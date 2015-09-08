@@ -159,6 +159,13 @@ browserify(options)
 
 You may also want to check out the  [FAQ](https://github.com/cheton/browserify-css#2-how-do-i-load-font-and-image-files-from-node_modules) for advanced usage.
 
+### rebaseUrls
+
+Type: `Boolean`
+Default: `true`
+
+If true, relative paths will be rebased in css files; if false, paths will be unchanged.
+
 ### rootDir
 
 Type: `String`

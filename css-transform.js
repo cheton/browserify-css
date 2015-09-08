@@ -26,7 +26,6 @@ var cssTransform = function(options, filename, callback) {
     });
 
     var rebaseUrls = options.rebaseUrls;
-
     var rootDir = options.rootDir || '';
     if (isRelativePath(rootDir)) {
         rootDir = path.join(process.cwd(), rootDir);
