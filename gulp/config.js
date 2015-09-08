@@ -42,6 +42,7 @@ module.exports = {
                         'verbose': true
                     },
                     'rootDir': 'examples/submodules',
+                    'rebaseUrls': true,
                     'minify': true,
                     'processRelativeUrl': function(relativeUrl) {
                         var stripQueryStringAndHashFromPath = function(url) {
