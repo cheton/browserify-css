@@ -5,13 +5,5 @@
   },
   "devDependencies": {
     "browserify-css": "0.2.x"
-  },
-  "browserify-css": {
-    "autoInject": true,
-    "autoInjectOptions": {
-        "verbose": true
-    },
-    "rootDir": ".",
-    "minify": false
   }
 }
