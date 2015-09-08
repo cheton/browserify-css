@@ -49,7 +49,7 @@ module.exports = function(filename, opts) {
         function flush(done) {
             var that = this;
 
-            cssTransform(options, filename, function(data) {
+            cssTransform.call(this, options, filename, function(data) {
                 var moduleBody = '';
                 var rootDir = path.resolve(process.cwd(), options.rootDir);
                 var relativePath = path.relative(rootDir, path.dirname(filename));

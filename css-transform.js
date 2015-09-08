@@ -16,6 +16,7 @@ var isRelativePath = function(path) {
 };
 
 var cssTransform = function(options, filename, callback) {
+    var that = this;
     var externalURLs = [];
     var cssStream = concat({ encoding: 'string' }, function(data) {
         var result = _.reduce(externalURLs, function(result, url) {
@@ -116,6 +117,8 @@ var cssTransform = function(options, filename, callback) {
                     absFilename = path.join(rootDir, url);
                 }
 
+                that.emit('file', absFilename);
+
                 parseCSSFile(absFilename);
 
             } else {
@@ -156,5 +159,5 @@ module.exports = function(options, filename, callback) {
 
     options = _.defaults(options || {}, defaults);
 
-    cssTransform(options, filename, callback);
+    cssTransform.call(this, options, filename, callback);
 };
