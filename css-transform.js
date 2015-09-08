@@ -25,6 +25,8 @@ var cssTransform = function(options, filename, callback) {
         callback(result);
     });
 
+    var rebaseUrls = options.rebaseUrls;
+
     var rootDir = options.rootDir || '';
     if (isRelativePath(rootDir)) {
         rootDir = path.join(process.cwd(), rootDir);
@@ -118,9 +120,11 @@ var cssTransform = function(options, filename, callback) {
                 parseCSSFile(absFilename);
 
             } else {
-                _.each(rule.declarations, function(declaration) {
-                    declaration.value = rebase(declaration.value);
-                });
+                if (rebaseUrls) {
+                    _.each(rule.declarations, function(declaration) {
+                        declaration.value = rebase(declaration.value);
+                    });
+                }
 
                 var cssText = css.stringify({
                     stylesheet: {
