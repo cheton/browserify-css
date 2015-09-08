@@ -117,7 +117,9 @@ var cssTransform = function(options, filename, callback) {
                     absFilename = path.join(rootDir, url);
                 }
 
-                that.emit('file', absFilename);
+                if (that && typeof that.emit === 'function') {
+                    that.emit('file', absFilename);
+                }
 
                 parseCSSFile(absFilename);
 
