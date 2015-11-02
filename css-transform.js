@@ -15,6 +15,43 @@ var isRelativePath = function(path) {
     return /^[^\/]/.test(path);
 };
 
+var isInNodeModuleDir = function () {
+    return !!process.cwd().match(/node_modules/)
+};
+
+var isNodeModule = function (path) {
+    return /^node_modules/.test(path);
+};
+
+var findNodeModuleDir = function (path) {
+    var parts = path.split('/');
+    var moduleName = '';
+    if (parts[0] == "node_modules") {
+        moduleName = parts[1];
+    }
+
+    var startingDirectory = process.cwd();
+    process.chdir('node_modules');
+
+    // move up the chain until we are no longer in a node module
+    while(isInNodeModuleDir()) {
+        if (fs.exists(process.cwd() + '/' + moduleName)) {
+            var path = process.cwd() + '/' + moduleName;
+            process.chdir(startingDirectory);
+            return path;
+        }
+        process.chdir('../');
+    }
+    process.chdir(startingDirectory);
+};
+
+var removeNodeModuleInPath = function (path) {
+    var parts = path.split('/');
+    parts.shift();
+    parts.shift();
+    return parts.join('/');
+};
+
 var cssTransform = function(options, filename, callback) {
     var that = this;
     var externalURLs = [];
@@ -111,7 +148,11 @@ var cssTransform = function(options, filename, callback) {
                 var dirname = path.dirname(filename);
                 var absFilename;
                 
-                if (isRelativePath(url)) { // relative path
+                // if the path starts with node_modules, search up the tree to find the module
+                // in case it was deduped to a higher location in the tree
+                if (isNodeModule(url)) {
+                    absFilename = findNodeModuleDir(url) + '/' + removeNodeModuleInPath(url);
+                } else if (isRelativePath(url)) { // relative path
                     absFilename = path.resolve(dirname, url);
                 } else { // absolute path
                     absFilename = path.join(rootDir, url);
