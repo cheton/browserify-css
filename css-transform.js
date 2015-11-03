@@ -16,7 +16,7 @@ var isRelativePath = function(path) {
 };
 
 var isInNodeModuleDir = function () {
-    return !!process.cwd().match(/node_modules/)
+    return !!process.cwd().match(/node_modules/);
 };
 
 var isNodeModule = function (path) {
@@ -26,7 +26,7 @@ var isNodeModule = function (path) {
 var findNodeModuleDir = function (path) {
     var parts = path.split('/');
     var moduleName = '';
-    if (parts[0] == "node_modules") {
+    if (parts[0] === 'node_modules') {
         moduleName = parts[1];
     }
 
@@ -36,9 +36,9 @@ var findNodeModuleDir = function (path) {
     // move up the chain until we are no longer in a node module
     while(isInNodeModuleDir()) {
         if (fs.exists(process.cwd() + '/' + moduleName)) {
-            var path = process.cwd() + '/' + moduleName;
+            var finalPath = process.cwd() + '/' + moduleName;
             process.chdir(startingDirectory);
-            return path;
+            return finalPath;
         }
         process.chdir('../');
     }
