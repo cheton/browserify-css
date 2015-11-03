@@ -15,41 +15,42 @@ var isRelativePath = function(path) {
     return /^[^\/]/.test(path);
 };
 
-var isInNodeModuleDir = function () {
-    return !!process.cwd().match(/node_modules/);
-};
-
-var isNodeModule = function (path) {
+var isNodeModulePath = function(path) {
     return /^node_modules/.test(path);
 };
 
-var findNodeModuleDir = function (dirname, path) {
-    var parts = path.split('/');
-    var moduleName = '';
+// Resolves the import path that starts with node_modules.
+// @see {@link https://github.com/cheton/browserify-css/pull/21} for further information.
+var resolveNodeModuleDir = function(baseDir, importPath) {
+    var parts = importPath.split('/');
+    var resolvePath = baseDir;
+    var modulePath = '';
+
     if (parts[0] === 'node_modules') {
-        moduleName = parts[1];
+        modulePath = _.rest(parts).join('/'); // Gets all but the first element of array
     }
 
-    var startingDirectory = process.cwd();
-    process.chdir(dirname + '/node_modules');
+    if (!modulePath) {
+        return path.join(baseDir, importPath);
+    }
 
-    // move up the chain until we are no longer in a node module
-    while(isInNodeModuleDir()) {
-        if (fs.existsSync(process.cwd() + '/' + moduleName)) {
-            var finalPath = process.cwd() + '/' + moduleName;
-            process.chdir(startingDirectory);
-            return finalPath;
+    resolvePath = path.join(resolvePath, 'node_modules');
+
+    while (1) {
+        if (fs.existsSync(path.join(resolvePath, modulePath))) {
+            return path.join(resolvePath, modulePath);
         }
-        process.chdir('../');
-    }
-    process.chdir(startingDirectory);
-};
 
-var removeNodeModuleInPath = function (path) {
-    var parts = path.split('/');
-    parts.shift();
-    parts.shift();
-    return parts.join('/');
+        resolvePath = path.resolve(resolvePath, '..');
+
+        // move up the chain until we are no longer in a node module
+        if (!(resolvePath.match(/node_modules/))) {
+            break;
+        }
+
+    }
+
+    return path.join(baseDir, importPath);
 };
 
 var cssTransform = function(options, filename, callback) {
@@ -150,8 +151,8 @@ var cssTransform = function(options, filename, callback) {
                 
                 // if the path starts with node_modules, search up the tree to find the module
                 // in case it was deduped to a higher location in the tree
-                if (isNodeModule(url)) {
-                    absFilename = findNodeModuleDir(dirname, url) + '/' + removeNodeModuleInPath(url);
+                if (isNodeModulePath(url)) {
+                    absFilename = resolveNodeModuleDir(dirname, url);
                 } else if (isRelativePath(url)) { // relative path
                     absFilename = path.resolve(dirname, url);
                 } else { // absolute path
