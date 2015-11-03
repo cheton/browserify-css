@@ -23,7 +23,7 @@ var isNodeModule = function (path) {
     return /^node_modules/.test(path);
 };
 
-var findNodeModuleDir = function (path) {
+var findNodeModuleDir = function (dirname, path) {
     var parts = path.split('/');
     var moduleName = '';
     if (parts[0] === 'node_modules') {
@@ -31,11 +31,11 @@ var findNodeModuleDir = function (path) {
     }
 
     var startingDirectory = process.cwd();
-    process.chdir('node_modules');
+    process.chdir(dirname + '/node_modules');
 
     // move up the chain until we are no longer in a node module
     while(isInNodeModuleDir()) {
-        if (fs.exists(process.cwd() + '/' + moduleName)) {
+        if (fs.existsSync(process.cwd() + '/' + moduleName)) {
             var finalPath = process.cwd() + '/' + moduleName;
             process.chdir(startingDirectory);
             return finalPath;
@@ -151,7 +151,7 @@ var cssTransform = function(options, filename, callback) {
                 // if the path starts with node_modules, search up the tree to find the module
                 // in case it was deduped to a higher location in the tree
                 if (isNodeModule(url)) {
-                    absFilename = findNodeModuleDir(url) + '/' + removeNodeModuleInPath(url);
+                    absFilename = findNodeModuleDir(dirname, url) + '/' + removeNodeModuleInPath(url);
                 } else if (isRelativePath(url)) { // relative path
                     absFilename = path.resolve(dirname, url);
                 } else { // absolute path
