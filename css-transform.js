@@ -36,7 +36,7 @@ var findNodeModuleDir = function (dirname, path) {
     var startingDirectory = process.cwd();
 
     //move up to the current modules root
-    while (!fs.existsSync(dirname + '/node_modules')) {
+    while (!fs.existsSync(dirname + '/node_modules') && isInNodeModuleDir()) {
         process.chdir('../');
     }
     process.chdir(dirname + '/node_modules');
