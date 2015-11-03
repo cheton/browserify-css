@@ -24,13 +24,21 @@ var isNodeModule = function (path) {
 };
 
 var findNodeModuleDir = function (dirname, path) {
+
+    // get target module name
     var parts = path.split('/');
     var moduleName = '';
     if (parts[0] === 'node_modules') {
         moduleName = parts[1];
     }
 
+    // remember where we started
     var startingDirectory = process.cwd();
+
+    //move up to the current modules root
+    while (!fs.existsSync(dirname + '/node_modules')) {
+        process.chdir('../');
+    }
     process.chdir(dirname + '/node_modules');
 
     // move up the chain until we are no longer in a node module
