@@ -6,6 +6,7 @@ var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
 var concat = require('concat-stream');
+var findNodeModules = require('find-node-modules');
 
 var isExternalURL = function(path) {
     return !! url.parse(path).protocol;
@@ -19,38 +20,31 @@ var isNodeModulePath = function(path) {
     return /^node_modules/.test(path);
 };
 
-// Resolves the import path that starts with node_modules.
+// Finds the the import path from parent node_modules.
 // @see {@link https://github.com/cheton/browserify-css/pull/21} for further information.
-var resolveNodeModuleDir = function(baseDir, importPath) {
+var findImportPathInNodeModules = function(baseDir, importPath) {
     var parts = importPath.split('/');
-    var resolvePath = baseDir;
-    var modulePath = '';
+    var pathname = path.join(baseDir, importPath);
 
     if (parts[0] === 'node_modules') {
-        modulePath = _.rest(parts).join('/'); // Gets all but the first element of array
+        // Gets all but the first element of array (i.e. node_modules).
+        importPath = _.rest(parts).join('/');
     }
 
-    if (!modulePath) {
-        return path.join(baseDir, importPath);
-    }
+    // Returns an array of all parent node_modules directories.
+    var dirs = findNodeModules({
+        cwd: baseDir,
+        relative: false
+    });
 
-    resolvePath = path.join(resolvePath, 'node_modules');
-
-    while (1) {
-        if (fs.existsSync(path.join(resolvePath, modulePath))) {
-            return path.join(resolvePath, modulePath);
+    _.forEach(dirs, function(dir) {
+        if (fs.existsSync(path.join(dir, importPath))) {
+            pathname = path.join(dir, importPath);
+            return false; // Exits iteration by returning false.
         }
+    });
 
-        resolvePath = path.resolve(resolvePath, '..');
-
-        // move up the chain until we are no longer in a node module
-        if (!(resolvePath.match(/node_modules/))) {
-            break;
-        }
-
-    }
-
-    return path.join(baseDir, importPath);
+    return pathname;
 };
 
 var cssTransform = function(options, filename, callback) {
@@ -147,23 +141,23 @@ var cssTransform = function(options, filename, callback) {
                 }
 
                 var dirname = path.dirname(filename);
-                var absFilename;
+                var pathname;
                 
                 // if the path starts with node_modules, search up the tree to find the module
                 // in case it was deduped to a higher location in the tree
                 if (isNodeModulePath(url)) {
-                    absFilename = resolveNodeModuleDir(dirname, url);
+                    pathname = findImportPathInNodeModules(dirname, url);
                 } else if (isRelativePath(url)) { // relative path
-                    absFilename = path.resolve(dirname, url);
+                    pathname = path.resolve(dirname, url);
                 } else { // absolute path
-                    absFilename = path.join(rootDir, url);
+                    pathname = path.join(rootDir, url);
                 }
 
                 if (that && typeof that.emit === 'function') {
-                    that.emit('file', absFilename);
+                    that.emit('file', pathname);
                 }
 
-                parseCSSFile(absFilename);
+                parseCSSFile(pathname);
 
             } else {
                 if (rebaseUrls) {
