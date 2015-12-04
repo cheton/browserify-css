@@ -1,4 +1,4 @@
-# browserify-css [![build status](https://travis-ci.org/cheton/browserify-css.svg?branch=master)](https://travis-ci.org/cheton/browserify-css) [![Coverage Status](https://coveralls.io/repos/cheton/browserify-css/badge.svg)](https://coveralls.io/r/cheton/browserify-css)
+# browserify-css [![build status](https://travis-ci.org/cheton/browserify-css.svg?branch=master)](https://travis-ci.org/cheton/browserify-css) [![Coverage Status](https://coveralls.io/repos/cheton/browserify-css/badge.svg?branch=master&service=github)](https://coveralls.io/github/cheton/browserify-css?branch=master)
 
 [![NPM](https://nodei.co/npm/browserify-css.png?downloads=true&stars=true)](https://nodei.co/npm/browserify-css/)
 

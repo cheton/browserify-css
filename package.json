@@ -5,9 +5,7 @@
   "main": "./index.js",
   "browser": "./browser.js",
   "scripts": {
-    "test": "npm run gulp && npm run tap-test",
-    "gulp": "gulp",
-    "tap-test": "tap test/*.js"
+    "test": "gulp && node_modules/.bin/tap --coverage test/*.js"
   },
   "repository": {
     "type": "git",

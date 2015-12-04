@@ -5,20 +5,21 @@ var test = require('tap').test;
 var browserify = require('browserify');
 var concatStream = require('concat-stream');
 var jsdom = require('jsdom');
+var browserifyCSSTransform = require('../');
 
 test('load style sheets at run time', function(t) {
     var b = browserify()
-        .add('./fixtures/submodules')
-        .transform(require('../index'))
-        .require('../browser', {expose: 'browserify-css'})
+        .add('test/fixtures/submodules')
+        .transform(browserifyCSSTransform)
+        .require('./browser', {expose: 'browserify-css'})
         .bundle();
 
     b.pipe(concatStream(function(bundle) {
-        var html = fs.readFileSync('./fixtures/submodules/index.html');
+        var html = fs.readFileSync('./test/fixtures/submodules/index.html');
         jsdom.env({
             html: html,
             src: [
-                fs.readFileSync('./fixtures/jquery.js'),
+                fs.readFileSync('./test/fixtures/jquery.js'),
                 bundle
             ],
             features: {
