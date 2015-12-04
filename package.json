@@ -1,6 +1,6 @@
 {
   "name": "browserify-css",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A Browserify transform for bundling, rebasing, inlining, and minifying CSS files",
   "main": "./index.js",
   "browser": "./browser.js",
@@ -28,6 +28,7 @@
     "clean-css": "2.2.x",
     "concat-stream": "1.4.x",
     "css": "1.6.x",
+    "find-node-modules": "^1.0.1",
     "lodash": "3.6.x",
     "through2": "0.6.x"
   },
