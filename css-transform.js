@@ -197,5 +197,9 @@ module.exports = function(options, filename, callback) {
 
     options = _.defaults(options || {}, defaults);
 
-    cssTransform.call(this, options, filename, callback);
+    try {
+        cssTransform.call(this, options, filename, callback);
+    } catch(err) {
+        this.emit('error', err);
+    }
 };
