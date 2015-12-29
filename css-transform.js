@@ -86,7 +86,7 @@ var cssTransform = function(options, filename, callback) {
                 var newUrl = url;
 
                 if ( ! url.match(absUrlRegEx) && ! url.match(protocolRegEx)) {
-                    // if both r[2] and r[3] are undefined, but r[1] is a string, it will be the case of url(path/to/foo.css)
+                    // If both r[2] and r[3] are undefined, but r[1] is a string, it will be the case of url(path/to/foo.css).
                     quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
 
                     var dirname = path.dirname(filename);
@@ -94,6 +94,7 @@ var cssTransform = function(options, filename, callback) {
                         to = path.resolve(dirname, url);
 
                     newUrl = processRelativeUrl(path.relative(from, to));
+                    newUrl = newUrl.replace(/\\/g, '/'); // All URLs must use forward slashes
 
                     source = source.substr(0, urlRegEx.lastIndex - url.length - quoteLen - 1) + newUrl + source.substr(urlRegEx.lastIndex - quoteLen - 1);
                 }
