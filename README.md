@@ -209,6 +209,11 @@ You can choose one of the following methods to include CSS files located inside 
   b.bundle().pipe(process.stdout);
   ```
   See [browserify transform options](https://github.com/substack/node-browserify#btransformtr-opts) for details.
+  
+  Then you will be able to require CSS files from within node_modules. For example:
+  ``` javascript
+  require('bootstrap/dist/bootstrap.css');
+  ```
 
 3. Put browserify transform option into a submodule's package.json file inside the `node_modules` directory on a **per-module basis** like so:
 
