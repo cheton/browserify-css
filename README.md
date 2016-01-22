@@ -329,6 +329,6 @@ bundleStream
 
 ## License
 
-Copyright (c) 2014-2015 Cheton Wu
+Copyright (c) 2014-2016 Cheton Wu
 
 Licensed under the [MIT License](https://github.com/cheton/browserify-css/blob/master/LICENSE).
