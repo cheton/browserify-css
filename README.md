@@ -115,6 +115,50 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+### onFlush
+
+Type: `Function`
+
+The `onFlush` option accepts a function which takes two arguments: (options, done).
+```js
+// @param {object} options The options object
+// @param {string} options.filename The filename
+// @param {string} options.data The CSS file content
+// @param {string} options.rootDir The root directory
+// @param {string} options.relativePath The relative path
+// @param {string} options.href The href attribute
+// @param {function} done The done callback
+onFlush: function(options, done) {
+    done(); // Keep module.exports unchanged
+    // or 
+    done(null); // Do not embed CSS into a JavaScript bundle
+    // or
+    done('module.exports = ' + JSON.stringify(options.data) + ';'); // Customize module.exports
+}
+```
+
+You can use the `onFlush` option to output each CSS to a separate file, or append multiple CSS into one. For example:
+``` javascript
+var browserify = require('browserify');
+var fs = require('fs');
+
+fs.unlinkSync('dist/assets/app.css');
+
+browserify(options)
+    .add('src/index.js')
+    .transform(require('browserify-css'), {
+        rootDir: 'src',
+        onFlush: function(options, done) {
+            fs.appendFileSync('dist/assets/app.css', options.data);
+            
+            // Pass a null value to the done callback if you do not want to embed CSS into a JavaScript bundle
+            done(null);
+        }
+    })
+    .bundle();
+```
+
+
 ### processRelativeUrl
 
 Type: `Function`
