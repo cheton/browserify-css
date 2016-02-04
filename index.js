@@ -8,16 +8,19 @@ var cssTransform = require('./css-transform');
 var CleanCSS = require('clean-css');
 
 var defaults = {
-    'autoInject': true,
-    'autoInjectOptions': {
+    autoInject: true,
+    autoInjectOptions: {
         'verbose': true
     },
-    'minify': false,
-    'minifyOptions': {
+    minify: false,
+    minifyOptions: {
         // Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
     },
-    'rebaseUrls': true,
-    'rootDir': process.cwd()
+    rebaseUrls: true,
+    rootDir: process.cwd(),
+    onFlush: function(options, done) {
+        done();
+    }
 };
 
 try {
@@ -50,28 +53,39 @@ module.exports = function(filename, opts) {
             var that = this;
 
             cssTransform.call(this, options, filename, function(data) {
-                var moduleBody = '';
                 var rootDir = path.resolve(process.cwd(), options.rootDir);
                 var relativePath = path.relative(rootDir, path.dirname(filename));
                 var href = path.join(relativePath, path.basename(filename));
 
-                if (options['minify']) {
-                    data = new CleanCSS(options['minifyOptions']).minify(data);
+                if (options.minify) {
+                    data = new CleanCSS(options.minifyOptions).minify(data);
                 }
 
-                if ( ! options['autoInject']) {
-                    moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
-                } else {
-                    if (options.autoInjectOptions['verbose']) {
-                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;';
-                    } else {
-                        moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css)); module.exports = css;';
+                options.onFlush({
+                    filename: filename,
+                    data: data,
+                    rootDir: rootDir,
+                    relativePath: relativePath,
+                    href: href
+                }, function(moduleBody) {
+                    if (moduleBody === undefined) {
+                        if ( ! options.autoInject) {
+                            moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
+                        } else {
+                            if (options.autoInjectOptions['verbose']) {
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;';
+                            } else {
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css)); module.exports = css;';
+                            }
+                        }
                     }
-                }
 
-                that.push(moduleBody);
-                that.push(null);
-                done();
+                    if (moduleBody) {
+                        that.push(moduleBody);
+                    }
+                    that.push(null);
+                    done();
+                });
             });
         }
     );

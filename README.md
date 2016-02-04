@@ -129,15 +129,21 @@ The `onFlush` option accepts a function which takes two arguments: (options, don
 // @param {string} options.href The href attribute
 // @param {function} done The done callback
 onFlush: function(options, done) {
-    done(); // Keep module.exports unchanged
-    // or 
-    done(null); // Do not embed CSS into a JavaScript bundle
-    // or
-    done('module.exports = ' + JSON.stringify(options.data) + ';'); // Customize module.exports
+    // Method 1:
+    // This will keep original module.exports unchanged
+    done();
+    
+    // Method 2:
+    // Pass a null value to the done callback if you do not want to embed CSS into a JavaScript bundle
+    done(null);
+    
+    // Method 3:
+    // Pass a text string to the done callback to customize module.exports
+    done('module.exports = ' + JSON.stringify(options.data) + ';');
 }
 ```
 
-You can use the `onFlush` option to output each CSS to a separate file, or append multiple CSS into one. For example:
+You can use the `onFlush` option to output each CSS to a separate file, or append multiple CSS into one file. For example:
 ``` javascript
 var browserify = require('browserify');
 var fs = require('fs');
@@ -151,13 +157,12 @@ browserify(options)
         onFlush: function(options, done) {
             fs.appendFileSync('dist/assets/app.css', options.data);
             
-            // Pass a null value to the done callback if you do not want to embed CSS into a JavaScript bundle
+            // Do not embed CSS into a JavaScript bundle
             done(null);
         }
     })
     .bundle();
 ```
-
 
 ### processRelativeUrl
 
