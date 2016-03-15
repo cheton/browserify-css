@@ -1,6 +1,7 @@
 'use strict';
 
 var fs = require('fs');
+var path = require('path');
 var test = require('tap').test;
 var browserify = require('browserify');
 var concatStream = require('concat-stream');
@@ -48,4 +49,21 @@ test('load style sheets at run time', function(t) {
             }
         });
     }));
+});
+
+test('processRelativeUrl with media query', function(t) {
+    var cssTransform = require('../css-transform');
+    var inputFile = path.resolve(__dirname, 'fixtures/app.css');
+    var outputFile = path.resolve(__dirname, 'fixtures/app.output.css');
+
+    cssTransform({
+        rootDir: path.resolve(__dirname, 'fixtures'),
+        rebaseUrls: true,
+        processRelativeUrl: function(relativeUrl) {
+            return 'images/' + relativeUrl;
+        }
+    }, inputFile, function(data) {
+        t.same(data, fs.readFileSync(outputFile, 'utf-8'));
+        t.end();
+    });
 });
