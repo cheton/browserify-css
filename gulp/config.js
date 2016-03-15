@@ -68,7 +68,7 @@ module.exports = {
                             return newUrl + queryStringAndHash;
                         }
 
-                        return url;
+                        return relativeUrl;
                     }
                 }
             }
