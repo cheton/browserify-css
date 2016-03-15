@@ -193,6 +193,9 @@ var cssTransform = function(options, filename, callback) {
 };
 
 var defaults = {
+    rebaseUrls: true,
+    rootDir: process.cwd(),
+    processRelativeUrl: null
 };
 
 module.exports = function(options, filename, callback) {
