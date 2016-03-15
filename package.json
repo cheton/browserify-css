@@ -44,7 +44,7 @@
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.9.2",
     "gulp-util": "^3.0.4",
-    "jsdom": "^8.0.2",
+    "jsdom": "^8.1.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
     "tap": "^5.7.0",
