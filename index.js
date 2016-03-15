@@ -16,7 +16,6 @@ var defaults = {
     minifyOptions: {
         // Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
     },
-    rebaseUrls: true,
     rootDir: process.cwd(),
     onFlush: function(options, done) {
         done();
@@ -42,7 +41,7 @@ module.exports = function(filename, opts) {
 
     var buffer = '';
 
-    options = _.extend({}, options, opts);
+    options = _.merge({}, options, opts);
 
     return through(
         function transform(chunk, enc, next) {
