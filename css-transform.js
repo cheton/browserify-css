@@ -105,6 +105,14 @@ var cssTransform = function(options, filename, callback) {
             return source;
         };
 
+        var processRule = function (rule) {
+            if (rebaseUrls) {
+                _.each(rule.declarations, function(declaration) {
+                    declaration.value = rebase(declaration.value);
+                });
+            }
+        };
+
         var data = fs.readFileSync(filename, 'utf8');
         if ( ! data) {
             return;
@@ -161,10 +169,12 @@ var cssTransform = function(options, filename, callback) {
                 parseCSSFile(pathname);
 
             } else {
-                if (rebaseUrls) {
-                    _.each(rule.declarations, function(declaration) {
-                        declaration.value = rebase(declaration.value);
-                    });
+                if (rule.type === 'media') {
+                    // handle rules in media query
+                    _.each(rule.rules, processRule);
+                } else {
+                    // handle normal rules
+                    processRule(rule);
                 }
 
                 var cssText = css.stringify({
