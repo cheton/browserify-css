@@ -21,7 +21,7 @@ module.exports = {
         head.appendChild(link);
     },
     // Create a <style> tag with optional data attributes
-    createStyle: function(cssText, attributes) {
+    createStyle: function(cssText, attributes, prepend) {
         var head = document.head || document.getElementsByTagName('head')[0],
             style = document.createElement('style');
 
@@ -34,17 +34,29 @@ module.exports = {
             var value = attributes[key];
             style.setAttribute('data-' + key, value);
         }
-        
+
         if (style.sheet) { // for jsdom and IE9+
             style.innerHTML = cssText;
             style.sheet.cssText = cssText;
-            head.appendChild(style);
+            if (prepend) {
+                head.insertBefore(style, head.firstChild);
+            } else {
+                head.appendChild(style);
+            }
         } else if (style.styleSheet) { // for IE8 and below
-            head.appendChild(style);
+            if (prepend) {
+                head.insertBefore(style, head.firstChild);
+            } else {
+                head.appendChild(style);
+            }
             style.styleSheet.cssText = cssText;
         } else { // for Chrome, Firefox, and Safari
             style.appendChild(document.createTextNode(cssText));
-            head.appendChild(style);
+            if (prepend) {
+                head.insertBefore(style, head.firstChild);
+            } else {
+                head.appendChild(style);
+            }
         }
     }
 };
