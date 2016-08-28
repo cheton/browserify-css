@@ -10,7 +10,8 @@ var CleanCSS = require('clean-css');
 var defaults = {
     autoInject: true,
     autoInjectOptions: {
-        'verbose': true
+        'verbose': true,
+        'prepend': false
     },
     minify: false,
     minifyOptions: {
@@ -72,9 +73,9 @@ module.exports = function(filename, opts) {
                             moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
                         } else {
                             if (options.autoInjectOptions['verbose']) {
-                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + '})); module.exports = css;';
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + '},' + (options.autoInjectOptions['prepend'] ? 'true' : 'false') + ')); module.exports = css;';
                             } else {
-                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css)); module.exports = css;';
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css. {}, ,' + (options.autoInjectOptions['prepend'] ? 'true' : 'false') + ')); module.exports = css;';
                             }
                         }
                     }
