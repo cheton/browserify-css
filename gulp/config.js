@@ -39,7 +39,8 @@ module.exports = {
                 'browserify-css': {
                     'autoInject': true,
                     'autoInjectOptions': {
-                        'verbose': true
+                        'verbose': true,
+                        'insertAt': 'bottom'
                     },
                     'rootDir': 'examples/submodules',
                     'rebaseUrls': true,
