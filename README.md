@@ -95,13 +95,20 @@ If true, each `require('path/to/file.css')` call will add a style tag to the hea
 
 Type: `Object`
 Default: 
-``` json
+```js
 {
-    "verbose": true
+    "verbose": true,
+    "insertAt": "bottom" // or "top"
 }
 ```
 
+#### `verbose`
+
 If verbose is set to true, the path to CSS will be specified in the data-href attribute inside the style tag
+
+#### `insertAt`
+
+By default, browserify-css transform appends <style> elements to the end of the <head> tag of the page. This will cause CSS created by browserify-css transform to take priority over CSS already present in the document head. To insert style elements at the beginning of the head, set the insertAt parameter to 'top'.
 
 ### minify
 
