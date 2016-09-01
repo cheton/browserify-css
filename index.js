@@ -11,7 +11,7 @@ var defaults = {
     autoInject: true,
     autoInjectOptions: {
         'verbose': true,
-        'prepend': false
+        'insertAt': 'bottom'
     },
     minify: false,
     minifyOptions: {
@@ -72,10 +72,10 @@ module.exports = function(filename, opts) {
                         if ( ! options.autoInject) {
                             moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
                         } else {
-                            if (options.autoInjectOptions['verbose']) {
-                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + '},' + (options.autoInjectOptions['prepend'] ? 'true' : 'false') + ')); module.exports = css;';
+                            if (options.autoInjectOptions.verbose) {
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, { "href": ' + JSON.stringify(href) + ' }, { "insertAt": ' + JSON.stringify(options.autoInjectOptions.insertAt) + ' })); module.exports = css;';
                             } else {
-                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css. {}, ,' + (options.autoInjectOptions['prepend'] ? 'true' : 'false') + ')); module.exports = css;';
+                                moduleBody = 'var css = ' + JSON.stringify(data) + '; (require(' + JSON.stringify('browserify-css') + ').createStyle(css, {}, { "insertAt": ' + JSON.stringify(options.autoInjectOptions.insertAt) + ' })); module.exports = css;';
                             }
                         }
                     }
