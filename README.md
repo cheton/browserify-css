@@ -108,7 +108,7 @@ If verbose is set to true, the path to CSS will be specified in the data-href at
 
 #### `insertAt`
 
-By default, browserify-css transform appends <style> elements to the end of the <head> tag of the page. This will cause CSS created by browserify-css transform to take priority over CSS already present in the document head. To insert style elements at the beginning of the head, set the insertAt parameter to 'top'.
+By default, browserify-css transform appends &lt;style&gt; elements to the end of the &lt;head&gt; tag of the page. This will cause CSS created by browserify-css transform to take priority over CSS already present in the document head. To insert style elements at the beginning of the head, set the insertAt parameter to 'top'.
 
 ### minify
 
