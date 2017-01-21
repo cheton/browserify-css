@@ -7,6 +7,7 @@ var fs = require('fs');
 var path = require('path');
 var concat = require('concat-stream');
 var findNodeModules = require('find-node-modules');
+var mime = require('mime');
 
 var isExternalURL = function(path) {
     return !! url.parse(path).protocol;
@@ -59,6 +60,7 @@ var cssTransform = function(options, filename, callback) {
     });
 
     var rebaseUrls = options.rebaseUrls;
+    var inlineImages = options.inlineImages;
     var rootDir = options.rootDir || '';
     if (isRelativePath(rootDir)) {
         rootDir = path.join(process.cwd(), rootDir);
@@ -105,7 +107,65 @@ var cssTransform = function(options, filename, callback) {
             return source;
         };
 
+        var inline = function(source) {
+          
+            /**
+             * Given the contents for an image, returns a data URI string
+             * representing the data in that image.
+             * Adapted from:
+             * https://github.com/jbkirby/css-img-datauri-stream/blob/master/index.js
+             */
+            var getDataURI = function(imageFile,mimeType) {
+                  // Convert it.
+                var ret = 'data:';
+                ret += mimeType;
+                ret += ';base64,';
+                ret += imageFile.toString('base64');
+                return ret;
+            };
+
+            var absUrlRegEx = /^(\/|data:)/;
+            var protocolRegEx = /[^\:\/]*:\/\/([^\/])*/;
+            var urlRegEx = /url\s*\((?!#)\s*(\s*"([^"]*)"|'([^']*)'|[^\)]*\s*)\s*\)/ig;
+            var r;
+            while ((r = urlRegEx.exec(source))) {
+                var url = r[2] || // url("path/to/foo.css");
+                          r[3] || // url('path/to/foo.css');
+                          r[1] || // url(path/to/foo.css)
+                          '';
+                var quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
+                var newUrl = url;
+
+                if ( ! url.match(absUrlRegEx) && ! url.match(protocolRegEx)) {
+                    // If both r[2] and r[3] are undefined, but r[1] is a string, it will be the case of url(path/to/foo.png).
+                    quoteLen = ((r[2] || r[3]) && r[1]) ? 1 : 0;
+
+                    var dirname = path.dirname(filename);
+                    var localImagePath = path.resolve(dirname, url);
+
+                      // Read the file in and convert it if its an image
+                    var mimeType = mime.lookup(localImagePath);
+                    if (mimeType.startsWith('image')) {
+                        var image = fs.readFileSync(localImagePath);
+                        newUrl = getDataURI(image,mimeType);
+    
+                        source = source.substr(0, urlRegEx.lastIndex - url.length - quoteLen - 1) + newUrl + source.substr(urlRegEx.lastIndex - quoteLen - 1);
+                    }
+                }
+
+                urlRegEx.lastIndex = urlRegEx.lastIndex + (newUrl.length - url.length);
+            }
+
+            return source;
+        };
+        
         var processRule = function (rule) {
+            if (inlineImages) {
+                _.each(rule.declarations, function(declaration) {
+                    declaration.value = inline(declaration.value);
+                });
+            }
+            
             if (rebaseUrls) {
                 _.each(rule.declarations, function(declaration) {
                     declaration.value = rebase(declaration.value);
