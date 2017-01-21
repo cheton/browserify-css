@@ -67,3 +67,17 @@ test('processRelativeUrl with media query', function(t) {
         t.end();
     });
 });
+
+test('processInlineImages in css file', function(t) {
+    var cssTransform = require('../css-transform');
+    var inputFile = path.resolve(__dirname, 'fixtures/app.css');
+    var outputFile = path.resolve(__dirname, 'fixtures/app.inline.css');
+
+    cssTransform({
+				inlineImages: true
+    }, inputFile, function(data) {
+				fs.writeFileSync('/tmp/output',data);
+        t.same(data, fs.readFileSync(outputFile, 'utf-8'));
+        t.end();
+    });
+});

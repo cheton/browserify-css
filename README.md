@@ -122,6 +122,23 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+### inlineImages
+
+Type: `Boolean`
+Default: `false`
+
+If true, each required css file will have image `url()` replaced with data urls.  For example from:
+
+```css
+  background-image: url("background.png");
+```
+
+to:
+
+```css
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
+```
+
 ### onFlush
 
 Type: `Function`
