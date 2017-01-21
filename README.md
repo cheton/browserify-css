@@ -399,6 +399,15 @@ bundleStream
 
 ```
 
+## Acknowledgements
+
+Test Images:
+- [test/fixtures/background.png](test/fixtures/background.png)<br/>
+Originally by [W3C](http://www.w3.org/html/logo/) under terms of [CC-BY-3.0](http://creativecommons.org/licenses/by/3.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Class-header-css3.jpg)
+
+- [test/fixtures/background-600.png](test/fixtures/background-600.png)<br/>
+Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/licenses/by/3.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:CSS3_logo_and_wordmark.svg)
+
 
 ## License
 
