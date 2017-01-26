@@ -33,6 +33,7 @@
     "css": "1.6.x",
     "find-node-modules": "^1.0.1",
     "lodash": "3.6.x",
+    "mime": "~1.2.11",
     "through2": "0.6.x"
   },
   "devDependencies": {

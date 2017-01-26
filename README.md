@@ -122,6 +122,33 @@ Default: `{}`
 
 Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
+### inlineImages
+
+Type: `Object`
+Default:
+```js
+{
+    "options": {   // maximum size (in bytes) of image file that will be inlined into css file
+        "limit": 0 // 0 means no limit - inline all images
+    }
+}
+```
+
+If true, each required css file will have image `url()` replaced with data urls.  For example from:
+
+```css
+  background-image: url("background.png");
+```
+
+to:
+
+```css
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
+```
+
+If a limit is set, then only files that are smaller than the number of bytes given
+will be inlined into the css file.
+
 ### onFlush
 
 Type: `Function`
@@ -381,6 +408,15 @@ bundleStream
     .pipe(gulp.dest(browserifyConfig.dest));
 
 ```
+
+## Acknowledgements
+
+Test Images:
+- [test/fixtures/background.png](test/fixtures/background.png)<br/>
+Originally by [W3C](http://www.w3.org/html/logo/) under terms of [CC-BY-3.0](http://creativecommons.org/licenses/by/3.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Class-header-css3.jpg)
+
+- [test/fixtures/background-600.png](test/fixtures/background-600.png)<br/>
+Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/licenses/by/3.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:CSS3_logo_and_wordmark.svg)
 
 
 ## License

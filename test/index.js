@@ -67,3 +67,35 @@ test('processRelativeUrl with media query', function(t) {
         t.end();
     });
 });
+
+test('processInlineImages in css file', function(t) {
+    var cssTransform = require('../css-transform');
+    var inputFile = path.resolve(__dirname, 'fixtures/app.css');
+    var outputFile = path.resolve(__dirname, 'fixtures/app.inline.css');
+
+    cssTransform({
+				inlineImages: true
+    }, inputFile, function(data) {
+				fs.writeFileSync('/tmp/output',data);
+        t.same(data, fs.readFileSync(outputFile, 'utf-8'));
+        t.end();
+    });
+});
+
+test('processInlineImages in css file with files larger than ', function(t) {
+    var cssTransform = require('../css-transform');
+    var inputFile = path.resolve(__dirname, 'fixtures/app.css');
+    var outputFile = path.resolve(__dirname, 'fixtures/app.inline-small.css');
+
+    cssTransform({
+				inlineImages: {
+            options: {
+                limit: 100000
+						}
+				},
+				rebaseUrls: false
+    }, inputFile, function(data) {
+        t.same(data, fs.readFileSync(outputFile, 'utf-8'));
+        t.end();
+    });
+});
