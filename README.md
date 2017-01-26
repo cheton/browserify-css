@@ -110,18 +110,6 @@ If verbose is set to true, the path to CSS will be specified in the data-href at
 
 By default, browserify-css transform appends &lt;style&gt; elements to the end of the &lt;head&gt; tag of the page. This will cause CSS created by browserify-css transform to take priority over CSS already present in the document head. To insert style elements at the beginning of the head, set the insertAt parameter to 'top'.
 
-### minify
-
-Type: `Boolean`
-Default: `false`
-
-### minifyOptions
-
-Type: `Object`
-Default: `{}`
-
-Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
-
 ### inlineImages
 
 Type: `Boolean` or `Object`
@@ -139,6 +127,8 @@ to:
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
 ```
 
+#### `options`
+
 Using the object syntax you can specify additional options for the inlineImages option:
 ```js
 {
@@ -149,6 +139,18 @@ Using the object syntax you can specify additional options for the inlineImages 
 ```
 
 If a limit is set, then only files that are smaller than the number of bytes given will be inlined into the css file.
+
+### minify
+
+Type: `Boolean`
+Default: `false`
+
+### minifyOptions
+
+Type: `Object`
+Default: `{}`
+
+Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
 
 ### onFlush
 
@@ -422,6 +424,6 @@ Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/lice
 
 ## License
 
-Copyright (c) 2014-2016 Cheton Wu
+Copyright (c) 2014-2017 Cheton Wu
 
 Licensed under the [MIT License](LICENSE).
