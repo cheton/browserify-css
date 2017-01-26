@@ -14,7 +14,7 @@ var defaults = {
         'insertAt': 'bottom'
     },
     minify: false,
-		inlineImages: false,
+    inlineImages: false,
     minifyOptions: {
         // Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
     },

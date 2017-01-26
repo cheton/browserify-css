@@ -126,7 +126,7 @@ var cssTransform = function(options, filename, callback) {
              * https://github.com/jbkirby/css-img-datauri-stream/blob/master/index.js
              */
             var getDataURI = function(imageFile,mimeType) {
-                  // Convert it.
+                // Convert it.
                 var ret = 'data:';
                 ret += mimeType;
                 ret += ';base64,';
