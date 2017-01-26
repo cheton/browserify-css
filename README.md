@@ -124,17 +124,10 @@ Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpaw
 
 ### inlineImages
 
-Type: `Object`
-Default:
-```js
-{
-    "options": {   // maximum size (in bytes) of image file that will be inlined into css file
-        "limit": 0 // 0 means no limit - inline all images
-    }
-}
-```
+Type: `Boolean` or `Object`
+Default: `false`
 
-If true, each required css file will have image `url()` replaced with data urls.  For example from:
+If true, each required css file will have image `url()` replaced with data urls. For example from:
 
 ```css
   background-image: url("background.png");
@@ -146,8 +139,16 @@ to:
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
 ```
 
-If a limit is set, then only files that are smaller than the number of bytes given
-will be inlined into the css file.
+Using the object syntax you can specify additional options for the inlineImages option:
+```js
+{
+    "options": { // maximum size (in bytes) of image file that will be inlined into css file
+        "limit": 0 // 0 means no limit - inline all images
+    }
+}
+```
+
+If a limit is set, then only files that are smaller than the number of bytes given will be inlined into the css file.
 
 ### onFlush
 
