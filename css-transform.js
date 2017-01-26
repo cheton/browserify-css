@@ -59,6 +59,16 @@ var cssTransform = function(options, filename, callback) {
         callback(result);
     });
 
+    // If inlineImages is not an object but evaluates to true
+    // create object with default options
+    if(options.inlineImages && typeof options.inlineImages !== 'object') {
+        options.inlineImages = {
+            options: {
+                limit: 0
+            }
+        };
+    }
+
     var rebaseUrls = options.rebaseUrls;
     var inlineImages = options.inlineImages;
     var rootDir = options.rootDir || '';
@@ -143,9 +153,16 @@ var cssTransform = function(options, filename, callback) {
                     var dirname = path.dirname(filename);
                     var localImagePath = path.resolve(dirname, url);
 
-                      // Read the file in and convert it if its an image
+                    // Read the file in and convert it if its an image
                     var mimeType = mime.lookup(localImagePath);
                     if (mimeType.startsWith('image')) {
+                        // If a size limit given skip if file larger than limit
+                        if(options.inlineImages.options.limit > 0) {
+                            var stat = fs.statSync(localImagePath);
+                            if(stat.size > options.inlineImages.options.limit) {
+                                continue;
+                            }
+                        }
                         var image = fs.readFileSync(localImagePath);
                         newUrl = getDataURI(image,mimeType);
     
