@@ -424,6 +424,6 @@ Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/lice
 
 ## License
 
-Copyright (c) 2014-2016 Cheton Wu
+Copyright (c) 2014-2017 Cheton Wu
 
 Licensed under the [MIT License](LICENSE).
