@@ -24,6 +24,10 @@ var defaults = {
     }
 };
 
+function bool(b) {
+    return !(/^(false|0)$/i).test(b) && !!b;
+}
+
 try {
     var pkg = JSON.parse(fs.readFileSync(process.cwd() + '/package.json') || '{}');
     var options = pkg['browserify-css'] || defaults;
@@ -44,6 +48,15 @@ module.exports = function(filename, opts) {
     var buffer = '';
 
     options = _.merge({}, options, opts);
+
+    // Convert string to boolean when passing transform options from command line
+    // https://github.com/cheton/browserify-css/issues/51
+    options.autoInject = bool(options.autoInject);
+    if (typeof options.autoInjectOptions === 'object') {
+        options.autoInjectOptions.verbose = bool(options.autoInjectOptions.verbose);
+    }
+    options.minify = bool(options.minify);
+    options.inlineImages = bool(options.inlineImages);
 
     return through(
         function transform(chunk, enc, next) {
