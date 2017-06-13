@@ -7,8 +7,8 @@
   "scripts": {
     "prepublish": "npm run build && npm test",
     "build": "gulp",
-    "test": "gulp && node_modules/.bin/tap --coverage test/*.js",
-    "coveralls": "node_modules/.bin/tap --coverage --coverage-report=text-lcov test/*.js | node_modules/.bin/coveralls"
+    "test": "tap test/*.js",
+    "coveralls": "tap test/*.js --coverage --coverage-report=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
