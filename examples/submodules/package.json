@@ -1,9 +1,8 @@
 {
   "name": "browserify-css-examples",
   "version": "0.1.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "browserify-css": "0.2.x"
+    "browserify-css": "*"
   }
 }
