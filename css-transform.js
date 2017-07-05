@@ -29,7 +29,7 @@ var findImportPathInNodeModules = function(baseDir, importPath) {
 
     if (parts[0] === 'node_modules') {
         // Gets all but the first element of array (i.e. node_modules).
-        importPath = _.rest(parts).join('/');
+        importPath = parts.slice(1).join('/');
     }
 
     // Returns an array of all parent node_modules directories.
@@ -38,7 +38,7 @@ var findImportPathInNodeModules = function(baseDir, importPath) {
         relative: false
     });
 
-    _.forEach(dirs, function(dir) {
+    _.each(dirs, function(dir) {
         if (fs.existsSync(path.join(dir, importPath))) {
             pathname = path.join(dir, importPath);
             return false; // Exits iteration by returning false.
