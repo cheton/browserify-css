@@ -195,7 +195,7 @@ var cssTransform = function(options, filename, callback) {
             return;
         }
 
-        var rules = css.parse(data).stylesheet.rules;
+        var rules = css.parse(data, { source: filename }).stylesheet.rules;
 
         _.each(rules, function(rule) {
             if (rule.type === 'import') {
@@ -259,6 +259,7 @@ var cssTransform = function(options, filename, callback) {
                         rules: [ rule ]
                     }
                 });
+
                 cssStream.write(cssText + '\n');
             }
         });
