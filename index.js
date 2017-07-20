@@ -72,7 +72,7 @@ module.exports = function(filename, opts) {
                 var href = path.join(relativePath, path.basename(filename));
 
                 if (options.minify) {
-                    data = new CleanCSS(options.minifyOptions).minify(data);
+                    data = new CleanCSS(options.minifyOptions).minify(data).styles;
                 }
 
                 options.onFlush({
