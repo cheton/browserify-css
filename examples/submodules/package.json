@@ -1,6 +1,9 @@
 {
   "name": "browserify-css-examples",
   "version": "0.1.0",
+  "scripts": {
+    "build": "browserify -t browserify-css -o bundle.js --debug index.js"
+  },
   "dependencies": {},
   "devDependencies": {
     "browserify-css": "*"
