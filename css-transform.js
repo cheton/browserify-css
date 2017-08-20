@@ -58,17 +58,22 @@ var cssTransform = function(options, filename, callback) {
         result = result + data;
         callback(result);
     });
-
+    
     // If inlineImages is not an object but evaluates to true
     // create object with default options
-    if(options.inlineImages && typeof options.inlineImages !== 'object') {
-        options.inlineImages = {
-            options: {
-                limit: 0
-            }
-        };
+    // if(options.inlineImages && typeof options.inlineImages !== 'object') {
+    //     options.inlineImages = {
+    //         options: {
+    //             limit: 0
+    //         }
+    //     };
+    // }
+    if(options.inlineImages && typeof options.inlineImagesOptions !== 'object'){
+        options.inlineImagesOptions = {
+            limit: 0
+        }
     }
-
+    
     var rebaseUrls = options.rebaseUrls;
     var inlineImages = options.inlineImages;
     var rootDir = options.rootDir || '';
@@ -118,7 +123,6 @@ var cssTransform = function(options, filename, callback) {
         };
 
         var inline = function(source) {
-          
             /**
              * Given the contents for an image, returns a data URI string
              * representing the data in that image.
@@ -157,9 +161,9 @@ var cssTransform = function(options, filename, callback) {
                     var mimeType = mime.lookup(localImagePath);
                     if (mimeType.startsWith('image')) {
                         // If a size limit given skip if file larger than limit
-                        if(options.inlineImages.options.limit > 0) {
+                        if(options.inlineImagesOptions.limit > 0) {
                             var stat = fs.statSync(localImagePath);
-                            if(stat.size > options.inlineImages.options.limit) {
+                            if(stat.size > options.inlineImagesOptions.limit) {
                                 continue;
                             }
                         }
