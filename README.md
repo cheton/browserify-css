@@ -127,7 +127,7 @@ to:
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
 ```
 
-#### inlineImagesOptions
+### inlineImagesOptions
 
 Type: `Object`
 Default:
