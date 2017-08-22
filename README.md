@@ -127,14 +127,15 @@ to:
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAHgCAYAAAD6yZXWAAAABmJLR0QA");
 ```
 
-#### `options`
+### inlineImagesOptions
 
-Using the object syntax you can specify additional options for the inlineImages option:
+Type: `Object`
+Default:
+
 ```js
 {
-    "options": { // maximum size (in bytes) of image file that will be inlined into css file
-        "limit": 0 // 0 means no limit - inline all images
-    }
+    // maximum size (in bytes) of image file that will be inlined into css file
+    "limit": 0 // 0 means no limit - inline all images
 }
 ```
 
