@@ -87,8 +87,12 @@ var cssTransform = function(options, filename, callback) {
         processRelativeUrl = options.processRelativeUrl;
     }
 
+    var parsedFiles = new Set();
     var parseCSSFile = function(filename) {
-
+        if(parsedFiles.has(filename)){
+            return;
+        }
+        parsedFiles.add(filename);
         var rebase = function(source) {
             var absUrlRegEx = /^(\/|data:)/;
             var protocolRegEx = /[^\:\/]*:\/\/([^\/])*/;
