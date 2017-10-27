@@ -87,7 +87,14 @@ var cssTransform = function(options, filename, callback) {
         processRelativeUrl = options.processRelativeUrl;
     }
 
+    var parsedCSSFiles = [];
     var parseCSSFile = function(filename) {
+        if (parsedCSSFiles.includes(filename)) {
+            // Ignore duplicate entries
+            return;
+        }
+
+        parsedCSSFiles.push(filename);
 
         var rebase = function(source) {
             var absUrlRegEx = /^(\/|data:)/;
