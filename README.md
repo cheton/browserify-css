@@ -202,6 +202,17 @@ browserify(options)
     .bundle();
 ```
 
+### output
+
+Type: `String`
+Default: ''
+
+The output path of the CSS file. When using this option, browserify-css will not embed stylesheets into a JavaScript bundle.
+
+```bash
+browserify -t [ browserify-css --minify=true --output bundle.css ] -o bundle.js index.js
+```
+
 ### processRelativeUrl
 
 Type: `Function`

@@ -21,7 +21,8 @@ var defaults = {
     rootDir: process.cwd(),
     onFlush: function(options, done) {
         done();
-    }
+    },
+    output: ''
 };
 
 function bool(b) {
@@ -58,6 +59,15 @@ module.exports = function(filename, opts) {
     options.minify = bool(options.minify);
     options.inlineImages = bool(options.inlineImages);
 
+    if (typeof options.output === 'string' && options.output.length > 0) {
+        try {
+            fs.writeFileSync(options.output, '', 'utf8');
+        } catch (err) {
+            options.output = '';
+            console.error(err);
+        }
+    }
+
     return through(
         function transform(chunk, enc, next) {
             buffer += chunk;
@@ -82,6 +92,17 @@ module.exports = function(filename, opts) {
                     relativePath: relativePath,
                     href: href
                 }, function(moduleBody) {
+                    if (typeof options.output === 'string' && options.output.length > 0) {
+                        try {
+                            fs.appendFileSync(options.output, data, 'utf8');
+                        } catch (err) {
+                            console.error(err);
+                        }
+
+                        done();
+                        return;
+                    }
+
                     if (moduleBody === undefined) {
                         if ( ! options.autoInject) {
                             moduleBody = 'module.exports = ' + JSON.stringify(data) + ';';
@@ -96,8 +117,10 @@ module.exports = function(filename, opts) {
 
                     if (moduleBody) {
                         that.push(moduleBody);
+                    } else {
+                        that.push(null);
                     }
-                    that.push(null);
+
                     done();
                 });
             });
