@@ -75,11 +75,14 @@ module.exports = {
 
 Furthermore, browserify-css transform can obtain options from the command-line with subarg syntax:
 ```
-$ browserify -t [ browserify-css --autoInject=true ] app.js
+$ browserify -t [ browserify-css --minify=true --output bundle.css ] -o bundle.js app.js
 ```
 or from the api:
 ```
-b.transform('browserify-css', { autoInject: true })
+b.transform('browserify-css', {
+    minify: true,
+    output: 'bundle.css'
+});
 ```
 
 ## Options
