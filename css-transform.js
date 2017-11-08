@@ -89,7 +89,7 @@ var cssTransform = function(options, filename, callback) {
 
     var parsedCSSFiles = [];
     var parseCSSFile = function(filename) {
-        if (parsedCSSFiles.includes(filename)) {
+        if (parsedCSSFiles.indexOf(filename) >= 0) {
             // Ignore duplicate entries
             return;
         }
