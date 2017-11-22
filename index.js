@@ -14,10 +14,11 @@ var defaults = {
         'insertAt': 'bottom'
     },
     minify: false,
-    inlineImages: false,
     minifyOptions: {
         // Check out a list of CSS minify options at [CleanCSS](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-programmatically).
     },
+    inlineImages: false,
+    stripComments: false,
     rootDir: process.cwd(),
     onFlush: function(options, done) {
         done();
@@ -58,6 +59,7 @@ module.exports = function(filename, opts) {
     }
     options.minify = bool(options.minify);
     options.inlineImages = bool(options.inlineImages);
+    options.stripComments = bool(options.stripComments);
 
     if (typeof options.output === 'string' && options.output.length > 0) {
         try {

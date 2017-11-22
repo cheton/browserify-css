@@ -11,8 +11,8 @@ var browserifyCSSTransform = require('../');
 test('load style sheets at run time', function(t) {
     var b = browserify()
         .add('test/fixtures/submodules')
-        .transform(browserifyCSSTransform)
-        .require('./browser', {expose: 'browserify-css'})
+        .transform(browserifyCSSTransform, { stripComments: true })
+        .require('./browser', { expose: 'browserify-css' })
         .bundle();
 
     b.pipe(concatStream(function(bundle) {

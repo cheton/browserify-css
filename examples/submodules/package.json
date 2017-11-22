@@ -2,8 +2,8 @@
   "name": "browserify-css-examples",
   "version": "0.1.0",
   "scripts": {
-    "build": "browserify -t [ browserify-css --minify=true --output bundle.css ] -o bundle.js index.js",
-    "debug": "browserify -t [ browserify-css --minify=true --output bundle.css ] -o bundle.debug.js --debug index.js"
+    "build": "browserify -t [ browserify-css --stripComments=true --minify=true --output bundle.css ] -o bundle.js index.js",
+    "debug": "browserify -t [ browserify-css --stripComments --minify --output bundle.css ] -o bundle.debug.js --debug index.js"
   },
   "dependencies": {},
   "devDependencies": {

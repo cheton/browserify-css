@@ -8,6 +8,7 @@ var path = require('path');
 var concat = require('concat-stream');
 var findNodeModules = require('find-node-modules');
 var mime = require('mime');
+var stripComments = require('strip-css-comments');
 
 var isExternalURL = function(path) {
     return !! url.parse(path).protocol;
@@ -68,7 +69,7 @@ var cssTransform = function(options, filename, callback) {
     //         }
     //     };
     // }
-    if(options.inlineImages && typeof options.inlineImagesOptions !== 'object'){
+    if (options.inlineImages && typeof options.inlineImagesOptions !== 'object'){
         options.inlineImagesOptions = {
             limit: 0
         }
@@ -204,6 +205,10 @@ var cssTransform = function(options, filename, callback) {
         var data = fs.readFileSync(filename, 'utf8');
         if ( ! data) {
             return;
+        }
+
+        if (options.stripComments) {
+            data = stripComments(data);
         }
 
         var rules = css.parse(data, { source: filename }).stylesheet.rules;

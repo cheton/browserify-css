@@ -34,6 +34,7 @@
     "find-node-modules": "^1.0.4",
     "lodash": "^4.17.4",
     "mime": "^1.3.6",
+    "strip-css-comments": "^3.0.0",
     "through2": "2.0.x"
   },
   "devDependencies": {
