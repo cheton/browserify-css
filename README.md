@@ -274,6 +274,13 @@ Default: `./`
 
 An absolute path to resolve relative paths against the project's base directory.
 
+### stripComments
+
+Type: `Boolean`
+Default: `false`
+
+Strip comments from CSS. Defaults to false.
+
 
 ## FAQ 
 ### 1. How do I include CSS files located inside the node_modules folder?
@@ -439,6 +446,4 @@ Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/lice
 
 ## License
 
-Copyright (c) 2014-2017 Cheton Wu
-
-Licensed under the [MIT License](LICENSE).
+MIT
