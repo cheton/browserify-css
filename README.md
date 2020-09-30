@@ -1,4 +1,4 @@
-# browserify-css [![build status](https://travis-ci.org/cheton/browserify-css.svg?branch=master)](https://travis-ci.org/cheton/browserify-css) [![Coverage Status](https://coveralls.io/repos/cheton/browserify-css/badge.svg?branch=master&service=github)](https://coveralls.io/github/cheton/browserify-css?branch=master)
+# browserify-css an amazing node package [![build status](https://travis-ci.org/cheton/browserify-css.svg?branch=master)](https://travis-ci.org/cheton/browserify-css) [![Coverage Status](https://coveralls.io/repos/cheton/browserify-css/badge.svg?branch=master&service=github)](https://coveralls.io/github/cheton/browserify-css?branch=master)
 
 [![NPM](https://nodei.co/npm/browserify-css.png?downloads=true&stars=true)](https://www.npmjs.com/package/browserify-css)
 
@@ -44,9 +44,9 @@ Each `require('./path/to/file.css')` call will concatenate CSS files with @impor
 </html>
 ```
 
-## Configuration
+## Configuration setting
 
-You can set configuration to your package.json file:
+You can set configuration to your package.json file as follows:
 ``` json
 {
     "browserify-css": {
@@ -57,7 +57,7 @@ You can set configuration to your package.json file:
 }
 ```
 
-or use an external configuration file like below:
+or use an external configuration file like given below:
 ``` json
 {
     "browserify-css": "./config/browserify-css.js"
@@ -284,7 +284,7 @@ Strip comments from CSS. Defaults to false.
 
 ## FAQ 
 ### 1. How do I include CSS files located inside the node_modules folder?
-You can choose one of the following methods to include CSS files located inside the node_modules folder:
+You can browse one of the following methods to include CSS files located inside the node_modules folder:
 
 1. The easiest way to do this is using the `@import` rule. For example:
 
@@ -302,7 +302,7 @@ You can choose one of the following methods to include CSS files located inside 
   @import "styles/common.css";
   ```
   
-2. Use the global transform option (i.e. `--global-transform` or `-g`) on the command line to transform all files in a node_modules directory:
+2. Using the global transform option (i.e. `--global-transform` or `-g`) on the command line to transform all files in a node_modules directory:
 
   ``` bash
   $ browserify -g browserify-css app.js > bundle.js 
@@ -341,7 +341,7 @@ You can choose one of the following methods to include CSS files located inside 
 
 ### 2. How do I load font and image files from node_modules?
 
-Assume that you have the following directory structure:
+Lets assume that you have the following directory structure:
 ``` bash
 package.json
 dist/
