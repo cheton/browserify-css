@@ -447,3 +447,6 @@ Originally by Rudloff under terms of [CC-BY-3.0](http://creativecommons.org/lice
 ## License
 
 MIT
+
+## Conclusion
+Browserify is an open-source JavaScript tool that allows developers to write Node.js-style modules that compile for use in the browser. Browserify lets you use require in the browser, the same way you'd use it in Node.
