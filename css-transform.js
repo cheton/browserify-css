@@ -9,6 +9,7 @@ var concat = require('concat-stream');
 var findNodeModules = require('find-node-modules');
 var mime = require('mime');
 var stripComments = require('strip-css-comments');
+var resolve = require("resolve");
 
 var isExternalURL = function(path) {
     return !! url.parse(path).protocol;
@@ -20,6 +21,17 @@ var isRelativePath = function(path) {
 
 var isNodeModulePath = function(path) {
     return /^node_modules/.test(path);
+};
+
+// Finds the the import path from parent node_modules even if node_modules is not prefixed in the path
+// @see {@link https://github.com/cheton/browserify-css/issues/46} for further information.
+var isImplicitNodeModulePath = function(url, dirname) {
+    try {
+        var newpathname = resolve.sync(url, { basedir: dirname });
+        return newpathname;
+    } catch (error) {
+        return false;
+    }
 };
 
 // Finds the the import path from parent node_modules.
@@ -249,6 +261,8 @@ var cssTransform = function(options, filename, callback) {
                 // in case it was deduped to a higher location in the tree
                 if (isNodeModulePath(url)) {
                     pathname = findImportPathInNodeModules(dirname, url);
+                } else if (data = isImplicitNodeModulePath(url, dirname)) { // direct requiring of node modules
+                    pathname = data;
                 } else if (isRelativePath(url)) { // relative path
                     pathname = path.resolve(dirname, url);
                 } else { // absolute path
